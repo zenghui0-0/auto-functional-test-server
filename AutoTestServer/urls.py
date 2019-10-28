@@ -22,10 +22,12 @@ urlpatterns = [
 ]
 """
 
+from django.contrib import admin
 from django.urls import path
-from . import view
+from . import view, testdb
 
 urlpatterns = [
     path('hello/', view.hello),
-    path('login/', view.login)
+    path('admin/', admin.site.urls),
+    path('testdb/', testdb.testdb)
 ]

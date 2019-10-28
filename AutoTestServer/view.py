@@ -6,6 +6,3 @@ def hello(request):
     context['hello'] = 'Hello World!'
     return render(request, 'hello.html', context)
 	
-
-def login(request):
-    return HttpResponse("Login Page !!! ")
