@@ -9,7 +9,8 @@ class myDevice(models.Model):
     HDT_IP    = models.GenericIPAddressField()
     user_name = models.SlugField()
     password  = models.SlugField()
-    email     = models.EmailField()
+    tag       = models.SlugField(max_length=100, null=True, blank=True)
+    email     = models.EmailField(max_length=100, null=True, blank=True, verbose_name='email_address', help_text='email address')
     def __str__(self):
         return self.HDT_IP
 
