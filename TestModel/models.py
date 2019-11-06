@@ -10,7 +10,7 @@ class myDevice(models.Model):
     user_name = models.SlugField()
     password  = models.SlugField()
     email     = models.EmailField()
-    def __unicode__(self):
+    def __str__(self):
         return self.HDT_IP
 
 class Task(models.Model):
