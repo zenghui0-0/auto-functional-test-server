@@ -25,9 +25,14 @@ urlpatterns = [
 from django.contrib import admin
 from django.urls import path
 from . import view, testdb
+from TestModel import views
 
 urlpatterns = [
     path('hello/', view.hello),
     path('admin/', admin.site.urls),
-    path('testdb/', testdb.testdb)
+    path('testdb/', testdb.testdb),
+    path('index/', views.index),
+    path('login/', views.login),
+    path('register/', views.register),
+    path('logout/', views.logout)
 ]
