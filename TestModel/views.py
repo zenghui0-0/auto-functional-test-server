@@ -15,6 +15,7 @@ def hash_code(s, salt='mysite'):# 加点盐
 def index(request):
     if not request.session.get('is_login', None):
         return redirect('/login/', locals())
+    devices = [ device for device in models.myDevice.objects.all()]#.all equals select *
     return render(request, 'login/index.html', locals())
 
 
