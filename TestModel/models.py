@@ -26,8 +26,8 @@ class User(models.Model):
 class myDevice(models.Model):
     DUT_IP    = models.GenericIPAddressField()
     HDT_IP    = models.GenericIPAddressField()
-    user_name = models.SlugField()
-    password  = models.SlugField()
+    user_name = models.SlugField(null=True, blank=True)
+    password  = models.SlugField(max_length=100, null=True)
     tag       = models.SlugField(max_length=100, null=True, blank=True)
     email     = models.EmailField(max_length=100, null=True, blank=True, verbose_name='email_address', help_text='email address')
     def __str__(self):

@@ -1,6 +1,8 @@
 ﻿body {
   height: 100%;
   background-image: url('../image/amd_logo2.jpg');
+  background-size: cover;
+  background-attachment:fixed;
 }
 .form-register {
   width: 100%;
@@ -15,4 +17,11 @@ form a{
   display: inline-block;
   margin-top:25px;
   line-height: 10px;
+}
+
+u, ins {
+    text-decoration: underline;
+	font-size: 1rem;
+    font-weight: bold;
+	color:#00F
 }
