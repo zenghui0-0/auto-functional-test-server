@@ -3,16 +3,10 @@ from django.db import models
  
 class User(models.Model):
 
-    """
-    gender = (
-        ('male', "男"),
-        ('female', "女"),
-    )
-    """
+
     name = models.CharField(max_length=128, unique=True)
     password = models.CharField(max_length=256)
     email = models.EmailField(unique=True)
-    #sex = models.CharField(max_length=32, choices=gender, default="男")
     c_time = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
@@ -24,12 +18,25 @@ class User(models.Model):
         verbose_name_plural = "Users"
 
 class myDevice(models.Model):
+
+    asset_status = (
+        (0, 'online'),
+        (1, 'offline'),
+        (2, 'unknow'),
+        (3, 'broken'),
+        (4, 'busy'),
+        )
+
     DUT_IP    = models.GenericIPAddressField()
-    HDT_IP    = models.GenericIPAddressField()
-    user_name = models.SlugField(null=True, blank=True)
-    password  = models.SlugField(max_length=100, null=True)
-    tag       = models.SlugField(max_length=100, null=True, blank=True)
+    HDT_IP    = models.GenericIPAddressField(null=True, blank=True)
+    user_name = models.SlugField(max_length=100,null=True, blank=True)
+    host_name = models.SlugField(max_length=100,null=True, blank=True)
+    password  = models.SlugField(max_length=100, null=True, blank=True)
+    tag       = models.SlugField(max_length=100, null=True, blank=True, help_text='For example: John_3dmark_11_12')
     email     = models.EmailField(max_length=100, null=True, blank=True, verbose_name='email_address', help_text='email address')
+    status    = models.SmallIntegerField(choices=asset_status, default=0, verbose_name='device status')
+    #Owner     = 
+    m_time = models.DateTimeField(auto_now=True, verbose_name='update time')
     def __str__(self):
         return self.HDT_IP
 
