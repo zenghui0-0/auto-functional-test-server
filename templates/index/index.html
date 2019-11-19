@@ -51,16 +51,15 @@ scratch. This page gets rid of all links and provides the needed markup only.
       </div>
     </form>
 
-    <div class="col-sm-6">
-
-    </div>
-
-    <ul class="navbar-nav">
-      <li class="nav-item d-none d-sm-inline-block">
-        <a href="/logout/" class="nav-link">LOG OUT!</a>
-      </li>
+    <!-- Right navbar links -->
+    <ul class="navbar-nav ml-auto">
+      <ul class="navbar-nav">
+        <li class="nav-item d-none d-sm-inline-block">
+          <a href="/logout/" class="nav-link">LOG OUT!</a>
+        </li>
+      </ul>
     </ul>
-	
+
   </nav>
   <!-- /.navbar -->
 
@@ -97,21 +96,30 @@ scratch. This page gets rid of all links and provides the needed markup only.
              </p> 
             </ul>
 
+          <li class="nav-item">
+            <a href="#" class="nav-link active">
+              <i class="nav-icon fas fa-th"></i>
+              <p>
+                Home Page
+              </p>
+            </a>
+          </li>
+
+          <li class="nav-item">
+            <a href="#" class="nav-link">
+              <i class="nav-icon fas fa-edit"></i>
+              <p>
+                My Devices
+              </p>
+            </a>
+          </li>
+
           </li>
           <li class="nav-item">
             <a href="/tasks/" class="nav-link">
               <i class="nav-icon fas fa-tachometer-alt"></i>
               <p>
-                Tasks
-              </p>
-            </a>
-          </li>
-
-		  <li class="nav-item">
-            <a href="#" class="nav-link">
-              <i class="nav-icon fas fa-th"></i>
-              <p>
-                My Devices
+                My Tasks
               </p>
             </a>
           </li>
