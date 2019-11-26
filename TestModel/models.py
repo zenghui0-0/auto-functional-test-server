@@ -23,14 +23,13 @@ class myDevice(models.Model):
         (0, 'online'),
         (1, 'offline'),
         (2, 'unknow'),
-        (3, 'broken'),
-        (4, 'busy'),
+        (3, 'busy'),
         )
 
     DUT_IP    = models.GenericIPAddressField()
     HDT_IP    = models.GenericIPAddressField(null=True, blank=True)
     user_name = models.SlugField(max_length=100,null=True, blank=True)
-    host_name = models.SlugField(max_length=100,null=True, blank=True)
+    host_name = models.SlugField(max_length=100,unique=True, help_text='a uniq name for your dut')
     password  = models.SlugField(max_length=100, null=True, blank=True)
     tag       = models.SlugField(max_length=100, null=True, blank=True, help_text='For example: John_3dmark_11_12')
     email     = models.EmailField(max_length=100, null=True, blank=True, verbose_name='email_address', help_text='email address')
