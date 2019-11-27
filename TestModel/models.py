@@ -34,7 +34,7 @@ class myDevice(models.Model):
     tag       = models.SlugField(max_length=100, null=True, blank=True, help_text='For example: John_3dmark_11_12')
     email     = models.EmailField(max_length=100, null=True, blank=True, verbose_name='email_address', help_text='email address')
     status    = models.SmallIntegerField(choices=asset_status, default=0, verbose_name='device status')
-    #Owner     = 
+    Owner     = models.SlugField(max_length=100, default="Admin")
     m_time = models.DateTimeField(auto_now=True, verbose_name='update time')
     def __str__(self):
         return self.HDT_IP
