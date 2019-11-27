@@ -38,15 +38,23 @@
           </li>
 {% endblock nav-item %}
 
-{% block content %}
+<!-- head content -->
+{% block headname %}
+	<h1 class="m-0 text-dark">Devices List</h1>		
+{% endblock headname %}
 
+{% block active-page %}
+   <li class="breadcrumb-item active">My Devices</li>
+{% endblock active-page %}
+
+{% block content %}
 	  <!-- Main content -->
 	  <section class="content">
       <div class="row">
         <div class="col-12">
           <div class="card">
             <div class="card-header">
-              <h3 class="card-title">Devices List:</h3>
+              <h3 class="card-title"></h3>
             </div>
             <!-- /.card-header -->
             <div class="card-body p-0">
