@@ -72,7 +72,7 @@ def register(request):
 
     if request.method == 'POST':
         register_form = forms.RegisterForm(request.POST)
-        message = "请检查填写的内容！"
+        message = "please check your inputs"
         if register_form.is_valid():
             username = register_form.cleaned_data.get('username')
             password1 = register_form.cleaned_data.get('password1')
@@ -81,16 +81,16 @@ def register(request):
             #sex = register_form.cleaned_data.get('sex')
 
             if password1 != password2:
-                message = '两次输入的密码不同！'
+                message = 'please enter same password'
                 return render(request, 'login/register.html', locals())
             else:
                 same_name_user = models.User.objects.filter(name=username)
                 if same_name_user:
-                    message = '用户名已经存在'
+                    message = 'username already exists'
                     return render(request, 'login/register.html', locals())
                 same_email_user = models.User.objects.filter(email=email)
                 if same_email_user:
-                    message = '该邮箱已经被注册了！'
+                    message = 'email address been used'
                     return render(request, 'login/register.html', locals())
 
                 new_user = models.User()
