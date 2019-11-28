@@ -30,12 +30,23 @@ def tasks(request):
     return render(request, 'index/tasks.html', locals())
 
 
+def addTasks(request):
+    if not request.session.get('is_login', None):
+        return redirect('/login/', locals())
+    return render(request, 'index/addTasks.html', locals())
+
+
 def devices(request):
     if not request.session.get('is_login', None):
         return redirect('/login/', locals())
     devices = models.myDevice.objects.all()#.all equals select *
     return render(request, 'index/devices.html', locals())
 
+def addDevices(request):
+    if not request.session.get('is_login', None):
+        return redirect('/login/', locals())
+    devices = models.myDevice.objects.all()#.all equals select *
+    return render(request, 'index/addDevices.html', locals())
 
 def login(request):
     if request.session.get('is_login', None):  # 不允许重复登录

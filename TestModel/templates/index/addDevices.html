@@ -18,7 +18,7 @@
             </a>
           </li>
 
-          <li class="nav-item has-treeview menu-close">
+          <li class="nav-item has-treeview menu-open">
             <a href="/devices/" class="nav-link active">
               <i class="nav-icon fas fa-edit"></i>
               <p>
@@ -28,7 +28,7 @@
             </a>
 			<ul class="nav nav-treeview">
               <li class="nav-item">
-                <a href="/devices/addDevices/" class="nav-link">
+                <a href="/devices/addDevices/" class="nav-link active">
                   <i class="far fa-circle nav-icon"></i>
                   <p>Add devices</p>
                 </a>
@@ -50,78 +50,17 @@
 
 <!-- head content -->
 {% block headname %}
-	<h1 class="m-0 text-dark">Devices List</h1>		
+	<h1 class="m-0 text-dark">Add device</h1>		
 {% endblock headname %}
 
 {% block active-page %}
+   <li class="breadcrumb-item"><a href="/devices/">My Devices</a></li>
    <li class="breadcrumb-item active">My Devices</li>
 {% endblock active-page %}
 
 {% block content %}
 	  <!-- Main content -->
-	  <section class="content">
-      <div class="row">
-        <div class="col-12">
-          <div class="card">
-            <div class="card-header">
-              <h3 class="card-title"></h3>
-            </div>
-            <!-- /.card-header -->
-            <div class="card-body p-0">
-              <table id="example1" class="table table-bordered table-striped">
-                <thead>
-                <tr>
-                  <th>No.</th>
-                  <th>Hostname</th>
-                  <th>Tag</th>
-                  <th>Last modify</th>
-				  <th>Status</th>
-				  <th>Edit</th>
-                  
-                </tr>
-                </thead>
-                <tbody>
-				
-				{% for device in devices %}
-	            <tr>
-                  <td>{{ forloop.counter }}</td>
-                  <td>{{ device.host_name }}</td>
-                  <td>{{ device.tag }}</td>
-                  <td>{{ device.m_time }}</td>
-                  <td class="project-state">
-				    {% if device.status == 0 %}
-				      <span class="badge badge-success">Online</span>
-					{% elif device.status == 1 %}
-					  <span class="badge badge-secondary">Offline</span>
-					{% elif device.status == 2 %}
-					  <span class="badge badge-secondary">Unknow</span>
-					{% elif device.status == 3 %}
-					  <span class="badge badge-warning">Busy</span>
-					{% endif %}
-				  </td>
-				  <td>
-				    <a class="btn btn-info btn-sm" href="#">
-                      <i class="fas fa-pencil-alt"></i>Edit
-                    </a>
-					<a class="btn btn-danger btn-sm" href="#">
-                              <i class="fas fa-trash">
-                              </i>
-                              Delete
-                    </a>
-				  </td>
-                </tr>
-	            {% endfor %}
-
-                </tfoot>
-              </table>
-            </div>
-            <!-- /.card-body -->
-          </div>
-        </div>
-        <!-- /.col -->
-      </div>
-      <!-- /.row -->
-    </section>
+	  
     <!-- /.content -->
 
 {% endblock content %}
