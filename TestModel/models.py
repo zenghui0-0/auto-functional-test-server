@@ -20,10 +20,10 @@ class User(models.Model):
 class myDevice(models.Model):
 
     asset_status = (
-        (0, 'online'),
-        (1, 'offline'),
-        (2, 'unknow'),
-        (3, 'busy'),
+        (0, 'Online'),
+        (1, 'Offline'),
+        (2, 'Unknow'),
+        (3, 'Busy'),
         )
 
     DUT_IP    = models.GenericIPAddressField()
