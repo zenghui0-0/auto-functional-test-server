@@ -43,9 +43,14 @@ def devices(request):
     return render(request, 'index/devices.html', locals())
 
 def addDevices(request):
+    request.encoding='utf-8'
     if not request.session.get('is_login', None):
         return redirect('/login/', locals())
-    devices = models.myDevice.objects.all()#.all equals select *
+    if request.method == 'POST':
+        devices_form = forms.DevicesForm(request.POST)
+        message = "please check your inputs"
+        if devices_form.is_valid():
+            host_name = devices_form.cleaned_data.get('host_name')
     return render(request, 'index/addDevices.html', locals())
 
 def login(request):

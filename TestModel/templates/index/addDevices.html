@@ -64,10 +64,18 @@
     <section class="content">
       <div class="row">
         <div class="col-md-6">
+		  <form class="" action="#" method="post">
+		  {% csrf_token %}
+		 
+    	  {% if devices_form.captcha.errors %}
+            <div class="alert alert-warning">{{ register_form.captcha.errors }}</div>
+          {% elif message %}
+            <div class="alert alert-warning">{{ message }}</div>
+          {% endif %}
+		  
           <div class="card card-primary">
             <!--div class="card-header">
               <h3 class="card-title">General</h3>
-
               <div class="card-tools">
                 <button type="button" class="btn btn-tool" data-card-widget="collapse" data-toggle="tooltip" title="Collapse">
                   <i class="fas fa-minus"></i></button>
@@ -76,32 +84,32 @@
             <div class="card-body">
               <div class="form-group">
                 <label for="inputName">Host name</label>
-                <input type="text" id="inputName" class="form-control">
+                <input type="text" name="host_name" class="form-control">
               </div>
 			  
 			  <div class="form-group">
                 <label for="inputName">DUT IP</label>
-                <input type="text" id="inputDutIp" class="form-control">
+                <input type="text" name="DUT_IP" class="form-control">
               </div>
 			  
 			  <div class="form-group">
                 <label for="inputName">HDT IP</label>
-                <input type="text" id="inputHDTIp" class="form-control">
+                <input type="text" name="HDT_IP" class="form-control">
               </div>
 			  
 			  <div class="form-group">
                 <label for="inputName">TAG</label>
-                <input type="text" id="inputTag" class="form-control">
+                <input type="text" name="tag" class="form-control">
               </div>
 			  
 			  <div class="form-group">
                 <label for="inputName">Email</label>
-                <input type="text" id="inputEmail" class="form-control">
+                <input type="text" name="email" class="form-control">
               </div>
 			  
               <div class="form-group">
                 <label for="inputStatus">Status</label>
-                <select class="form-control custom-select">
+                <select name="status" class="form-control custom-select">
                   <option selected disabled>Select one</option>
                   <option>Online</option>
                   <option>Offline</option>
@@ -109,7 +117,7 @@
 				  <option>Busy</option>
                 </select>
               </div>
-
+            
             </div>
             <!-- /.card-body -->
           </div>
@@ -120,7 +128,7 @@
               <input type="submit" value="Add new device" class="btn btn-success float-right">
             </div>
           </div>
-	  
+	      </form>
           <!-- /.card -->
         </div>
        
