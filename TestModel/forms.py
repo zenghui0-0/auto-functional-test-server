@@ -34,4 +34,4 @@ class DevicesForm(forms.Form):
     HDT_IP    = forms.GenericIPAddressField(label="HDT IP", widget=forms.TextInput(attrs={'class': 'form-control'}))
     tag       = forms.CharField(label="Tag", max_length=100, widget=forms.TextInput(attrs={'class': 'form-control'}))
     email     = forms.EmailField(label="Email", widget=forms.EmailInput(attrs={'class': 'form-control'}))
-    status    = forms.ChoiceField(label='Status', choices=asset_status)
+    status    = forms.ChoiceField(label='Status', choices=asset_status, widget=forms.Select(attrs={'class': 'form-control custom-select'}))

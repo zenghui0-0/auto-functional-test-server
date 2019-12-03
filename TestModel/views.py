@@ -58,6 +58,10 @@ def addDevices(request):
             tag = device_form.cleaned_data.get('tag')
             email = device_form.cleaned_data.get('email')
             status = device_form.cleaned_data.get('status')
+            same_host_name = models.myDevice.objects.filter(host_name=host_name)
+            if same_host_name:
+                message = 'device with this host name already exits, you may go edit it'
+                return render(request, 'index/addDevices.html', locals())
             
             #adding device into db
             new_device = models.myDevice()
