@@ -29,9 +29,9 @@ class DevicesForm(forms.Form):
         (2, 'Unknow'),
         (3, 'Busy'),
         )
-    host_name = forms.CharField(label="host name", max_length=100, widget=forms.TextInput(attrs={'class': 'form-control'}))
-    DUT_IP    = forms.GenericIPAddressField(label="device ip", widget=forms.TextInput(attrs={'class': 'form-control'}))
-    HDT_IP    = forms.GenericIPAddressField(label="wombat ip", widget=forms.TextInput(attrs={'class': 'form-control'}))
-    tag       = forms.CharField(label="host name", max_length=100, widget=forms.TextInput(attrs={'class': 'form-control'}))
-    email     = forms.EmailField(label="email address", widget=forms.EmailInput(attrs={'class': 'form-control'}))
-    status    = forms.ChoiceField(label='device state', choices=asset_status)
+    host_name = forms.CharField(label="Host name", max_length=100, widget=forms.TextInput(attrs={'class': 'form-control'}))
+    DUT_IP    = forms.GenericIPAddressField(label="DUT IP", widget=forms.TextInput(attrs={'class': 'form-control'}))
+    HDT_IP    = forms.GenericIPAddressField(label="HDT IP", widget=forms.TextInput(attrs={'class': 'form-control'}))
+    tag       = forms.CharField(label="Tag", max_length=100, widget=forms.TextInput(attrs={'class': 'form-control'}))
+    email     = forms.EmailField(label="Email", widget=forms.EmailInput(attrs={'class': 'form-control'}))
+    status    = forms.ChoiceField(label='Status', choices=asset_status)

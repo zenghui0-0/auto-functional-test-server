@@ -46,7 +46,9 @@ def addDevices(request):
     if not request.session.get('is_login', None):
         return redirect('/login/', locals())
     devices = models.myDevice.objects.all()#.all equals select *
+    print(request.method)
     if request.method == 'POST':
+        print("we are here 1....")
         device_form = forms.DevicesForm(request.POST)
         message = 'please check input content!'
         if device_form.is_valid():
@@ -55,7 +57,8 @@ def addDevices(request):
             HDT_IP = device_form.cleaned_data.get('HDT_IP')
             tag = device_form.cleaned_data.get('tag')
             email = device_form.cleaned_data.get('email')
-
+            status = device_form.cleaned_data.get('status')
+            
             #adding device into db
             new_device = models.myDevice()
             new_device.host_name = host_name
@@ -63,8 +66,14 @@ def addDevices(request):
             new_device.DUT_IP = DUT_IP
             new_device.tag = tag
             new_device.email = email
+            new_device.status = status
+            new_device.Owner = request.session['user_name']
+            new_device.save()
+
+            return redirect('/devices/')
         else:
-            return render(request, 'login/login.html', locals())
+            return render(request, 'index/addDevices.html', locals())
+    device_form = forms.DevicesForm()
     return render(request, 'index/addDevices.html', locals())
 
 def login(request):
