@@ -100,13 +100,11 @@
 					{% endif %}
 				  </td>
 				  <td>
-				    <a class="btn btn-info btn-sm" href="#">
-                      <i class="fas fa-pencil-alt"></i>Edit
+				    <a class="btn btn-info btn-sm" href="/devices/editDevice/?id={{ device }}">
+                      <i class="fas fa-pencil-alt">Edit</i>
                     </a>
-					<a class="btn btn-danger btn-sm" href="#">
-                              <i class="fas fa-trash">
-                              </i>
-                              Delete
+					<a class="btn btn-danger btn-sm" href="/devices/deleDevice/?id={{ device.id }}">
+                      <i class="fas fa-trash">Delete</i>
                     </a>
 				  </td>
                 </tr>

@@ -46,9 +46,7 @@ def addDevices(request):
     if not request.session.get('is_login', None):
         return redirect('/login/', locals())
     devices = models.myDevice.objects.all()#.all equals select *
-    print(request.method)
     if request.method == 'POST':
-        print("we are here 1....")
         device_form = forms.DevicesForm(request.POST)
         message = 'please check input content!'
         if device_form.is_valid():
@@ -79,6 +77,17 @@ def addDevices(request):
             return render(request, 'index/addDevices.html', locals())
     device_form = forms.DevicesForm()
     return render(request, 'index/addDevices.html', locals())
+
+
+def editDevice(request):
+    id = request.GET.get("id")
+    pass
+
+
+def deleDevice(request):
+    id = request.GET.get("id")
+    models.myDevice(id = id).delete()
+    return redirect('/devices/')
 
 def login(request):
     if request.session.get('is_login', None):  # 不允许重复登录
