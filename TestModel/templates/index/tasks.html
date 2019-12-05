@@ -5,46 +5,6 @@
 
 {% block css %}{% endblock %}
 
-{% block nav-item %}
-    <li class="nav-item">
-            <a href="/index/" class="nav-link">
-              <i class="nav-icon fas fa-th"></i>
-              <p>
-                Home Page
-              </p>
-            </a>
-          </li>
-
-          <li class="nav-item">
-            <a href="/devices/" class="nav-link">
-              <i class="nav-icon fas fa-edit"></i>
-              <p>
-                My Devices
-				<i class="right fas fa-angle-left"></i>
-              </p>
-            </a>
-          </li>
-
-          </li>
-          <li class="nav-item has-treeview menu-close">
-            <a href="/tasks/" class="nav-link active">
-              <i class="nav-icon fas fa-tachometer-alt"></i>
-              <p>
-                My Tasks
-				<i class="right fas fa-angle-left"></i>
-              </p>
-            </a>
-			<ul class="nav nav-treeview">
-              <li class="nav-item">
-                <a href="/tasks/addTasks/" class="nav-link">
-                  <i class="far fa-circle nav-icon"></i>
-                  <p>Add Tasks</p>
-                </a>
-              </li>
-            </ul>
-          </li>
-		  
-{% endblock nav-item %}
 
 <!-- head content -->
 {% block headname %}

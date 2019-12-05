@@ -90,11 +90,74 @@ scratch. This page gets rid of all links and provides the needed markup only.
         <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
           <!-- Add icons to the links using the .nav-icon class
                with font-awesome or any other icon font library -->
-
-        {% block nav-item %}
 		
-		{% endblock nav-item %}
+		  <li class="nav-item">
+            <a href="/index/" class="nav-link">
+			<!--a href="/index/" class="nav-link active"-->
+              <i class="nav-icon fas fa-th"></i>
+              <p>
+                Home Page
+              </p>
+            </a>
+          </li>
+		  
+          <li class="nav-item has-treeview menu-open">
+            <a href="#" class="nav-link">
+			<!--a href="#" class="nav-link active"-->
+              <i class="nav-icon fas fa-edit"></i>
+              <p>
+                Devices
+                <i class="right fas fa-angle-left"></i>
+              </p>
+            </a>
+            <ul class="nav nav-treeview">
+              <li class="nav-item">
+                <a href="/devices/" class="nav-link">
+				<!--a href="/devices/" class="nav-link active"-->
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>My Devices</p>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="/devices/addDevices/" class="nav-link">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Add a device</p>
+                </a>
+              </li>
+			  <li class="nav-item">
+                <a href="#" class="nav-link">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>edit device</p>
+                </a>
+              </li>
+            </ul>
+          </li>
 
+		  <li class="nav-item has-treeview menu-open">
+		  <!--li class="nav-item has-treeview menu-open"-->
+            <a href="#" class="nav-link">
+              <i class="nav-icon fas fa-tachometer-alt"></i>
+              <p>
+                Tasks
+                <i class="right fas fa-angle-left"></i>
+              </p>
+            </a>
+            <ul class="nav nav-treeview">
+              <li class="nav-item">
+                <a href="/tasks/" class="nav-link">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>My Tasks</p>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="/tasks/addTasks/" class="nav-link">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Add a task</p>
+                </a>
+              </li>
+            </ul>
+          </li>
+		  
         </ul>
       </nav>
       <!-- /.sidebar-menu -->
@@ -146,6 +209,30 @@ scratch. This page gets rid of all links and provides the needed markup only.
 <script src="{% static 'plugins/bootstrap/js/bootstrap.bundle.min.js' %}"></script>
 <!-- AdminLTE App -->
 <script src="{% static 'dist/js/adminlte.min.js' %}"></script>
+
 {% block script %} {% endblock %}
+
+
+<script>
+
+String.prototype.endWith = function (s) {
+           var d = this.length - s.length;
+           return (d >= 0 && this.lastIndexOf(s) == d)
+    };
+
+var a = document.getElementsByClassName('nav-link');
+var path = '{{ request.path }}';
+console.log(a);
+for(var i = 0; i < a.length; i++){
+    var Href = a[i].href;
+    if(Href.endWith(path)){
+	    console.log(a[i].href);
+	    a[i].className = 'nav-link active';
+	}else{
+	}
+	};
+
+</script>
+
 </body>
 </html>
