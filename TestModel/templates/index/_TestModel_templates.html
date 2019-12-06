@@ -213,24 +213,36 @@ scratch. This page gets rid of all links and provides the needed markup only.
 {% block script %} {% endblock %}
 
 
-<script>
+<！--script>
 
+//定义一个检查字符串是否以子字符串结尾的方法
 String.prototype.endWith = function (s) {
            var d = this.length - s.length;
            return (d >= 0 && this.lastIndexOf(s) == d)
     };
 
+//active current tab
 var a = document.getElementsByClassName('nav-link');
 var path = '{{ request.path }}';
-console.log(a);
+//console.log(a);
 for(var i = 0; i < a.length; i++){
     var Href = a[i].href;
     if(Href.endWith(path)){
-	    console.log(a[i].href);
-	    a[i].className = 'nav-link active';
+	    //console.log(a[i].href);
+		a[i].className = 'nav-link active'; 
 	}else{
 	}
-	};
+};
+
+</script-->
+
+<script>
+
+//var path = '{{ request.path }}';
+$("a[href$='{{ request.path }}']").each(function(i){
+    //console.log($(this).attr("class"));
+	$(this).addClass('active');
+ });
 
 </script>
 
