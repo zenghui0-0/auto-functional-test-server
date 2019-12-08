@@ -81,7 +81,8 @@ def addDevices(request):
 
 def editDevice(request):
     id = request.GET.get("id")
-    pass
+    devices = models.myDevice.objects.filter(id=id)
+    return render(request, 'index/editDevice.html', locals())
 
 
 def deleDevice(request):
