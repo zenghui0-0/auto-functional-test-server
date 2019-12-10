@@ -56,11 +56,12 @@ def addDevices(request):
             tag = device_form.cleaned_data.get('tag')
             email = device_form.cleaned_data.get('email')
             status = device_form.cleaned_data.get('status')
+            """
             same_host_name = models.myDevice.objects.filter(host_name=host_name)
             if same_host_name:
                 message = 'device with this host name already exits, you may go edit it'
                 return render(request, 'index/addDevices.html', locals())
-            
+            """
             #adding device into db
             new_device = models.myDevice()
             new_device.host_name = host_name
@@ -80,8 +81,39 @@ def addDevices(request):
 
 
 def editDevice(request):
+    if not request.session.get('is_login', None):
+        return redirect('/login/', locals())
     id = request.GET.get("id")
-    devices = models.myDevice.objects.filter(id=id)
+    device = models.myDevice.objects.values().filter(id=id).first()
+    if request.method == 'POST':
+        device_form = forms.DevicesForm(request.POST)
+        message = 'please check input content!'
+        if device_form.is_valid():
+            host_name = device_form.cleaned_data.get('host_name')
+            DUT_IP = device_form.cleaned_data.get('DUT_IP')
+            HDT_IP = device_form.cleaned_data.get('HDT_IP')
+            tag = device_form.cleaned_data.get('tag')
+            email = device_form.cleaned_data.get('email')
+            status = device_form.cleaned_data.get('status')
+
+            #adding device into db
+            new_device = models.myDevice()
+            new_device.host_name = host_name
+            new_device.HDT_IP = HDT_IP
+            new_device.DUT_IP = DUT_IP
+            new_device.tag = tag
+            new_device.email = email
+            new_device.status = status
+            new_device.Owner = request.session['user_name']
+            new_device.save()
+
+            return redirect('/devices/')
+        else:
+            return render(request, 'index/editDevice.html', locals())   
+    else:
+        device_form = forms.DevicesForm(initial=device)
+        return render(request, 'index/editDevice.html', locals())
+    device_form = forms.DevicesForm()
     return render(request, 'index/editDevice.html', locals())
 
 
