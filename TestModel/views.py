@@ -96,8 +96,11 @@ def editDevice(request):
             email = device_form.cleaned_data.get('email')
             status = device_form.cleaned_data.get('status')
 
-            #adding device into db
-            new_device = models.myDevice()
+            #updating device info
+            if not id: #add a new device
+                new_device = models.myDevice()
+            else: #update old device info
+                new_device = models.myDevice.objects.get(id=id)
             new_device.host_name = host_name
             new_device.HDT_IP = HDT_IP
             new_device.DUT_IP = DUT_IP
@@ -105,6 +108,7 @@ def editDevice(request):
             new_device.email = email
             new_device.status = status
             new_device.Owner = request.session['user_name']
+            new_device.done = True
             new_device.save()
 
             return redirect('/devices/')
@@ -119,7 +123,7 @@ def editDevice(request):
 
 def deleDevice(request):
     id = request.GET.get("id")
-    models.myDevice(id = id).delete()
+    models.myDevice.objects.filter(id = id).delete()
     return redirect('/devices/')
 
 def login(request):
