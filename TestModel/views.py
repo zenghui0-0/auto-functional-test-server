@@ -30,10 +30,10 @@ def tasks(request):
     return render(request, 'index/tasks.html', locals())
 
 
-def addTasks(request):
+def startTask(request):
     if not request.session.get('is_login', None):
         return redirect('/login/', locals())
-    return render(request, 'index/addTasks.html', locals())
+    return render(request, 'index/startTask.html', locals())
 
 
 def devices(request):

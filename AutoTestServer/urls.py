@@ -32,7 +32,7 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('index/', views.index),
     path('tasks/', views.tasks),
-    path('tasks/addTasks/', views.addTasks),
+    path('tasks/startTask/', views.startTask),
     path('devices/', views.devices),
     path('devices/addDevices/', views.addDevices),
     path('devices/editDevice/', views.editDevice),
