@@ -34,7 +34,6 @@ urlpatterns = [
     path('tasks/', views.tasks),
     path('tasks/startTask/', views.startTask),
     path('devices/', views.devices),
-    path('devices/addDevices/', views.addDevices),
     path('devices/editDevice/', views.editDevice),
     path('devices/deleDevice/', views.deleDevice),
     path('login/', views.login),

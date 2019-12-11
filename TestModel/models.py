@@ -35,7 +35,7 @@ class myDevice(models.Model):
     email     = models.EmailField(max_length=100, null=True, blank=True, verbose_name='email_address', help_text='email address')
     status    = models.SmallIntegerField(choices=asset_status, default=0, verbose_name='device status')
     Owner     = models.SlugField(max_length=100, default="Admin")
-    m_time = models.DateTimeField(auto_now=True, verbose_name='update time')
+    m_time    = models.DateTimeField(auto_now=True, verbose_name='update time')
     def __str__(self):
         return self.HDT_IP
 
@@ -44,4 +44,15 @@ class myDevice(models.Model):
         verbose_name_plural = "Devices"
 
 class Task(models.Model):
-    name = models.CharField(max_length=20)
+    task_status = (
+        (0, 'PASS'),
+        (1, 'FAIL'),
+        (2, 'RUNNING'),
+        (3, 'PAUSE'),
+        )
+
+    name      = models.CharField(max_length=20)
+    Owner     = models.SlugField(max_length=100, default="Admin")
+    status    = models.SmallIntegerField(choices=task_status, default=0, verbose_name='task status')
+    m_time    = models.DateTimeField(auto_now=True, verbose_name='update time')
+    

@@ -42,43 +42,6 @@ def devices(request):
     devices = models.myDevice.objects.all()#.all equals select *
     return render(request, 'index/devices.html', locals())
 
-def addDevices(request):
-    if not request.session.get('is_login', None):
-        return redirect('/login/', locals())
-    devices = models.myDevice.objects.all()#.all equals select *
-    if request.method == 'POST':
-        device_form = forms.DevicesForm(request.POST)
-        message = 'please check input content!'
-        if device_form.is_valid():
-            host_name = device_form.cleaned_data.get('host_name')
-            DUT_IP = device_form.cleaned_data.get('DUT_IP')
-            HDT_IP = device_form.cleaned_data.get('HDT_IP')
-            tag = device_form.cleaned_data.get('tag')
-            email = device_form.cleaned_data.get('email')
-            status = device_form.cleaned_data.get('status')
-            """
-            same_host_name = models.myDevice.objects.filter(host_name=host_name)
-            if same_host_name:
-                message = 'device with this host name already exits, you may go edit it'
-                return render(request, 'index/addDevices.html', locals())
-            """
-            #adding device into db
-            new_device = models.myDevice()
-            new_device.host_name = host_name
-            new_device.HDT_IP = HDT_IP
-            new_device.DUT_IP = DUT_IP
-            new_device.tag = tag
-            new_device.email = email
-            new_device.status = status
-            new_device.Owner = request.session['user_name']
-            new_device.save()
-
-            return redirect('/devices/')
-        else:
-            return render(request, 'index/addDevices.html', locals())
-    device_form = forms.DevicesForm()
-    return render(request, 'index/addDevices.html', locals())
-
 
 def editDevice(request):
     if not request.session.get('is_login', None):
@@ -125,6 +88,7 @@ def deleDevice(request):
     id = request.GET.get("id")
     models.myDevice.objects.filter(id = id).delete()
     return redirect('/devices/')
+
 
 def login(request):
     if request.session.get('is_login', None):  # 不允许重复登录
