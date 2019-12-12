@@ -52,7 +52,9 @@ class Task(models.Model):
         )
 
     name      = models.CharField(max_length=20)
+    progress  = models.DecimalField(max_digits=5, decimal_places=2, default=0)
     Owner     = models.SlugField(max_length=100, default="Admin")
+    comments  = models.SlugField(max_length=100, null=True, blank=True, help_text='For example: John_3dmark_11_12')
     status    = models.SmallIntegerField(choices=task_status, default=0, verbose_name='task status')
     m_time    = models.DateTimeField(auto_now=True, verbose_name='update time')
     

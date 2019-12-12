@@ -16,6 +16,86 @@
 {% endblock active-page %}
 
 {% block content %}
+<!-- Main content -->
+	  <section class="content">
+      <div class="row">
+          <div class="col-12">
+            <div class="card">
+              <div class="card-header">
+                <h3 class="card-title"></h3>
+
+                <div class="card-tools">
+                  <div class="input-group input-group-sm" style="width: 150px;">
+                    <input type="text" name="table_search" class="form-control float-right" placeholder="Search">
+
+                    <div class="input-group-append">
+                      <button type="submit" class="btn btn-default"><i class="fas fa-search"></i></button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <!-- /.card-header -->
+            <div class="card-body table-responsive p-0">
+                <table class="table table-hover">
+                  <thead>
+                <tr>
+                  <th>No.</th>
+                  <th>name</th>
+                  <th>progress</th>
+				  <th>Status</th>
+				  <th>Opration</th>
+				  <th>Owner</th>
+				  <th>Date</th>
+                  
+                </tr>
+                </thead>
+                <tbody>
+				
+				{% for task in tasks %}
+	            <tr>
+                  <td>{{ forloop.counter }}</td>
+                  <td>
+				    <a  href="#">{{ task.name }}</a>
+				  </td>
+                  <td>{{ task.progress }}</td>
+                  <td class="project-state">
+				    {% if task.status == 0 %}
+				      <span class="badge badge-success">Pass</span>
+					{% elif task.status == 1 %}
+					  <span class="badge badge-warning">Fail</span>
+					{% elif task.status == 2 %}
+					  <span class="badge badge-success">Running</span>
+					{% elif task.status == 3 %}
+					  <span class="badge badge-secondary">Pause</span>
+					{% endif %}
+				  </td>
+				  <td>
+				    <a class="btn btn-primary btn-sm" href="/tasks/startTask/?id={{ device.id }}">
+                      <i class="fas fa-folder">Run</i>
+                    </a>
+				    <a class="btn btn-info btn-sm" href="/devices/editDevice/?id={{ device.id }}">
+                      <i class="fas fa-pencil-alt">Stop</i>
+                    </a>
+					<a class="btn btn-danger btn-sm" href="/devices/deleDevice/?id={{ device.id }}">
+                      <i class="fas fa-trash">Delete</i>
+                    </a>
+				  </td>
+				  <td>{{ task.Owner }}</td>
+				  <td>{{ task.m_time }}</td>
+                </tr>
+	            {% endfor %}
+
+                </tfoot>
+              </table>
+            </div>
+            <!-- /.card-body -->
+          </div>
+        </div>
+        <!-- /.col -->
+      </div>
+      <!-- /.row -->
+    </section>
+    <!-- /.content -->
 
 {% endblock content %}
 
