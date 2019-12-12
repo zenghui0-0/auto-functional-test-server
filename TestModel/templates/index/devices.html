@@ -48,10 +48,10 @@
 	            <tr>
                   <td>{{ forloop.counter }}</td>
                   <td>
-				    <a  href="/devices/editDevice/?id={{ device.id }}">{{ device.host_name }}</a>
+				    <a  href="/devices/editDevice/?id={{ device.id }}">{{ device.host_name | default:"-" }}</a>
 				  </td>
-                  <td>{{ device.tag }}</td>
-                  <td>{{ device.m_time }}</td>
+                  <td>{{ device.tag | default:"-" }}</td>
+                  <td>{{ device.m_time | date:"Y/m/d" }}</td>
                   <td class="project-state">
 				    {% if device.status == 0 %}
 				      <span class="badge badge-success">Online</span>
