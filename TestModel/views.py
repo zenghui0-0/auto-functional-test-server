@@ -27,7 +27,7 @@ def index(request):
 def tasks(request):
     if not request.session.get('is_login', None):
         return redirect('/login/', locals())
-    tasks = models.Task.objects.all()#.all equals select *
+    tasks = models.Task.objects.order_by("-m_time").all().values()#.all equals select *
     return render(request, 'index/tasks.html', locals())
 
 
@@ -40,7 +40,7 @@ def startTask(request):
 def devices(request):
     if not request.session.get('is_login', None):
         return redirect('/login/', locals())
-    devices = models.myDevice.objects.all()#.all equals select *
+    devices = models.myDevice.objects.order_by("-m_time").all()#.all equals select *
     return render(request, 'index/devices.html', locals())
 
 

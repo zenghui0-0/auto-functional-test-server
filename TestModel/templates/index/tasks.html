@@ -55,16 +55,16 @@
 	            <tr>
                   <td>{{ forloop.counter }}</td>
                   <td>
-				    <a  href="#">{{ task.name }}</a>
+				    <a  href="#">{{ task.name |slice:":10"  }}</a>
 				  </td>
                   <td>
-				    {% if task.status == 1 %}
+					{% if task.status == 1 %}
 					  <div class="progress progress-sm">
                         <div class="progress-bar bg-red" role="progressbar" aria-volumenow={{ task.progress }} aria-volumemin="0" aria-volumemax="100" style="width: {{ task.progress }}%">
                       </div>
                       </div>
                       <small>
-                        {{ task.progress }} Complete
+                        {{ task.progress }}% Complete
                       </small>
 					{% else %}
 				      <div class="progress progress-sm">
@@ -72,7 +72,7 @@
                       </div>
                       </div>
                       <small>
-                        {{ task.progress }} Complete
+                        {{ task.progress }}% Complete
                       </small>
 					{% endif %}
 				  </td>
