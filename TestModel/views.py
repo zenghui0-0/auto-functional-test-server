@@ -27,7 +27,7 @@ def index(request):
 def tasks(request):
     if not request.session.get('is_login', None):
         return redirect('/login/', locals())
-    tasks = models.Task.objects.order_by("-m_time").all().values()#.all equals select *
+    tasks = models.Task.objects.exclude(status=4).order_by("-m_time").all().values()#.all equals select *
     return render(request, 'index/tasks.html', locals())
 
 

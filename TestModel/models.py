@@ -49,12 +49,13 @@ class Task(models.Model):
         (1, 'FAIL'),
         (2, 'RUNNING'),
         (3, 'PAUSE'),
+        (4, 'NEW'),
         )
 
-    name      = models.CharField(max_length=50)
+    name      = models.CharField(max_length=50, null=True, blank=True)
     progress  = models.PositiveSmallIntegerField(default=0)
     Owner     = models.SlugField(max_length=100, default="Admin")
-    comments  = models.SlugField(max_length=100, null=True, blank=True, help_text='For example: John_3dmark_11_12')
+    tag       = models.SlugField(max_length=100, null=True, blank=True, help_text='For example: John_3dmark_11_12')
     status    = models.SmallIntegerField(choices=task_status, default=0, verbose_name='task status')
     m_time    = models.DateTimeField(auto_now=True, verbose_name='update time')
     
