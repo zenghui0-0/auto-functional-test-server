@@ -17,7 +17,125 @@
 {% endblock active-page %}
 
 {% block content %}
+    <section class="content">
+      <div class="container-fluid">
+        
+        <!-- Timelime example  -->
+        <div class="row">
+          <div class="col-md-12">
+            <!-- The time line -->
+            <div class="timeline">
+              <!-- timeline time label -->
+              <div class="time-label">
+                <span class="bg-gray">Devices</span>
+              </div>
+              <!-- /.timeline-label -->
+			  {% if devices %}
+			    {% for device in devices %}
+                  <!-- timeline item -->
+                  <div>
+                    <i class="fas fa-tag bg-green"></i>
+                    <div class="timeline-item">
+                      <span class="time"><i class="fas fa-clock"></i> 12:05</span>
+                      <h3 class="timeline-header"><a href="#">{{ device.host_name }}</a> was added for this task</h3>
 
+                      <div class="timeline-body">
+                        You can view device details or cancel this by following buttons
+                      </div>
+                      <div class="timeline-footer">
+                        <a class="btn btn-primary btn-sm">view details</a>
+                        <a class="btn btn-danger btn-sm">Delete</a>
+                      </div>
+                    </div>
+                  </div>
+                  <!-- END timeline item -->
+				{% endfor %}
+			  {% else %}
+			    <!-- timeline item -->
+                <div>
+				  <i class="fas fa-exclamation bg-red"></i>
+                  <div class="timeline-item">
+                    <h3 class="timeline-header">No devices was added for this task</h3>
+
+                    <div class="timeline-body">
+                      You may go and add one
+                    </div>
+                    <div class="timeline-footer">
+                      <a class="btn btn-primary btn-sm" href="/devices/">add device</a>
+                    </div>
+                  </div>
+                </div>
+                <!-- END timeline item -->
+			  {% endif %}
+			  
+              <!-- timeline time label -->
+              <div class="time-label">
+                <span class="bg-gray">Test case</span>
+              </div>
+              <!-- /.timeline-label -->
+              {% if device.id %}
+                <!-- timeline item -->
+                <div>
+                  <i class="fas fa-tag bg-green"></i>
+                  <div class="timeline-item">
+                    <span class="time"><i class="fas fa-clock"></i> 12:05</span>
+                    <h3 class="timeline-header"><a href="#">{{ device.host_name }}</a> was added for this task</h3>
+
+                    <div class="timeline-body">
+                      You can view device details or cancel this by following buttons
+                    </div>
+                    <div class="timeline-footer">
+                      <a class="btn btn-primary btn-sm">view details</a>
+                      <a class="btn btn-danger btn-sm">Delete</a>
+                    </div>
+                  </div>
+                </div>
+                <!-- END timeline item -->
+			  {% else %}
+			    <!-- timeline item -->
+                <div>
+				  <i class="fas fa-exclamation bg-red"></i>
+                  <div class="timeline-item">
+                    <h3 class="timeline-header">No test case was added for this task</h3>
+
+                    <div class="timeline-body">
+                      You may go and add one
+                    </div>
+                    <div class="timeline-footer">
+                      <a class="btn btn-primary btn-sm" href="#">add a test</a>
+                    </div>
+                  </div>
+                </div>
+                <!-- END timeline item -->
+			  {% endif %}
+              
+              <div>
+                <i class="fas fa-clock bg-gray"></i>
+              </div>
+            </div>
+          </div>
+          <!-- /.col -->
+        </div>
+      </div>
+      <!-- /.timeline -->
+
+    </section>
+    <!-- /.content -->
+  </div>
+  <!-- /.content-wrapper -->
 {% endblock content %}
 
-{% block script %} {% endblock %}
+{% block script %}
+
+<script>
+
+$(document).ready(function(){
+  if('{{ devices }}' != "None"){
+    $("span:contains(Devices)").attr("class","bg-green");
+  }else{
+  };
+});
+
+</script>
+
+{% endblock %}
