@@ -36,15 +36,14 @@ def startTask(request):
         return redirect('/login/', locals())
     id = request.GET.get("id")
     #add devices
-    if not request.session.has_key('device_id'):
-        request.session['has_device'] = None
-        request.session['device_id'] = []
-    else:
+    if id:
         request.session['device_id'].append(id)
-        devices = models.myDevice.objects.values().filter(id__in = request.session['device_id'])
-        print(type(request.session))
-        print(request.session['device_id'])
-        print(devices)
+    if not request.session.has_key('device_id'):
+        request.session['device_id'] = []
+    devices = models.myDevice.objects.values().filter(id__in = request.session['device_id'])
+    print(request.session.values())
+    print(request.session['device_id'])
+    print(devices)
 
     return render(request, 'index/startTask.html', locals())
 
