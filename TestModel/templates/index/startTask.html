@@ -43,11 +43,15 @@
                         You can view device details or cancel this by following buttons
                       </div>
                       <div class="timeline-footer">
-                        <a class="btn btn-primary btn-sm">view details</a>
+					    <button type="button" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#modal-default">
+                          view details
+						</button>
                         <a class="btn btn-danger btn-sm">Delete</a>
                       </div>
                     </div>
+					
                   </div>
+				  
                   <!-- END timeline item -->
 				{% endfor %}
 			  {% else %}
@@ -85,7 +89,9 @@
                       You can view device details or cancel this by following buttons
                     </div>
                     <div class="timeline-footer">
-                      <a class="btn btn-primary btn-sm">view details</a>
+					  <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modal-default">
+                        view details
+					  </button>
                       <a class="btn btn-danger btn-sm">Delete</a>
                     </div>
                   </div>
@@ -123,14 +129,39 @@
     <!-- /.content -->
   </div>
   <!-- /.content-wrapper -->
+  
+  <div class="modal fade" id="modal-default">
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h4 class="modal-title">Default Modal</h4>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div class="modal-body">
+              <p>One fine body&hellip;</p>
+            </div>
+            <div class="modal-footer justify-content-between">
+              <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+              <button type="button" class="btn btn-primary">Save changes</button>
+            </div>
+          </div>
+          <!-- /.modal-content -->
+        </div>
+        <!-- /.modal-dialog -->
+      </div>
+      <!-- /.modal -->
 {% endblock content %}
+
+
 
 {% block script %}
 
 <script>
-console.log('{{ id }}');
+//console.log('{{ device_id }}');
 $(document).ready(function(){
-  if('{{ id }}' != "None"){
+  if('{{ device_id }}' != "None"){
     $("span:contains(Devices)").attr("class","bg-green");
   }else{
   };

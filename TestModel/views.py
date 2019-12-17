@@ -34,14 +34,14 @@ def tasks(request):
 def startTask(request):
     if not request.session.get('is_login', None):
         return redirect('/login/', locals())
-    id = request.GET.get("id")
+    device_id = request.GET.get("id")
     #add devices
     if not request.session.has_key('device_id'):
         request.session['device_id'] = None
-    if id:
-        request.session['device_id'] = id
+    if device_id:
+        request.session['device_id'] = device_id
     else:
-        id = request.session.get('device_id')
+        device_id = request.session.get('device_id')
     devices = models.myDevice.objects.values().filter(id = request.session['device_id'])
     print(request.session.values())
     print(request.session['device_id'])
