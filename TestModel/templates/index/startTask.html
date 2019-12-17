@@ -139,9 +139,89 @@
                 <span aria-hidden="true">&times;</span>
               </button>
             </div>
-            <div class="modal-body">
-              <p>One fine body&hellip;</p>
+			
+            <div class="modal-body" style="height: 100%;">
+			
+			  <div class="form-group">
+                    <label for="lastname" class="col-sm-3 control-label">host_name</label>
+                    <div class="col-sm-7">
+                        <input type="text" class="form-control"  name="{{ device.host_name }}" id="{{ device.host_name }}" required="required"
+                               placeholder="host name of your device">
+                        </input>
+                    </div>
+              </div>
+
+                <div class="form-group">
+                    <label for="lastname" class="col-sm-3 control-label">版本号</label>
+                    <div class="col-sm-7">
+                        <input type="text" class="form-control"  name="version" id="version" required="required"
+                               placeholder="请输入当前版本号">
+                        </input>
+                    </div>
+                </div>
+
+                 <div class="form-group">
+                    <label for="firstname" class="col-sm-3 control-label">转测时间</label>
+                     <div class='input-group col-sm-7 date' id='datetimepicker2'>
+{#                     <div class="col-sm-7" id='datetimepicker2'>#}
+                         <input type='text' class="form-control" name="submit_test_time" id="submit_test_time" required="required">
+                         <span class="input-group-addon">
+                             <span class="glyphicon glyphicon-calendar"></span>
+                         </span>
+                     </div>
+
+                 </div>
+
+                <div class="form-group">
+                    <label for="lastname" class="col-sm-3 control-label">用例总数</label>
+                    <div class="col-sm-7">
+                        <input type="text" class="form-control"  name="case_num" id="case_num" required="required" oninput="value=value.replace(/[^\d]/g,'')"
+                               placeholder="请输入冒烟用例总数">
+                        </input>
+                    </div>
+                </div>
+
+                 <div class="form-group">
+                    <label for="firstname" class="col-sm-3 control-label">执行总数</label>
+                    <div class="col-sm-7">
+                        <input type="text" class="form-control"  name="executed_num" id="executed_num" required="required" oninput="value=value.replace(/[^\d]/g,'')"
+                               placeholder="请输入已执行用例数">
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="lastname" class="col-sm-3 control-label">成功数</label>
+                    <div class="col-sm-7">
+                        <input type="text" class="form-control"  name="pass_num" id="pass_num" required="required" oninput="value=value.replace(/[^\d]/g,'')"
+                               placeholder="请输入已执行成功数">
+                        </input>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="lastname" class="col-sm-3 control-label">失败数</label>
+                    <div class="col-sm-7">
+                        <input type="text" class="form-control"  name="fail_num" id="fail_num" required="required" oninput="value=value.replace(/[^\d]/g,'')"
+                               placeholder="请输入已执行失败数">
+                        </input>
+                    </div>
+                </div>
+
+				<div class="form-group">
+                    <label for="firstname" class="col-sm-3 control-label">项目名称</label>
+                    <div class="col-sm-7">
+                    <select data-placeholder="选择项目..." class="form-control" name="project_name" id="project_name" required="required">
+                                    <option value="">请选择项目</option>
+                                    {% for key,value in project_data.items %}
+                                    <option value="{{ value }}" hassubinfo="true">{{ key }}</option>
+                                    {% endfor %}
+                                </select>
+
+                    </div>
+                </div>
+
             </div>
+			
             <div class="modal-footer justify-content-between">
               <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
               <button type="button" class="btn btn-primary">Save changes</button>
