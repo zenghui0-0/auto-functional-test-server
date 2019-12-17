@@ -37,10 +37,10 @@ def startTask(request):
     id = request.GET.get("id")
     #add devices
     if id:
-        request.session['device_id'].append(id)
+        request.session['device_id'] = id
     if not request.session.has_key('device_id'):
-        request.session['device_id'] = []
-    devices = models.myDevice.objects.values().filter(id__in = request.session['device_id'])
+        request.session['device_id'] = None
+    devices = models.myDevice.objects.values().filter(id = request.session['device_id'])
     print(request.session.values())
     print(request.session['device_id'])
     print(devices)
