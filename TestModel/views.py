@@ -5,7 +5,10 @@ mail: zenghui0_0@163.com
 """
 from django.shortcuts import render
 from django.shortcuts import redirect
+from django.contrib.auth.models import User
+from django.forms.models import model_to_dict
 from . import models, forms
+from . import taskViews
 import hashlib
 
 # Create your views here.
@@ -27,26 +30,21 @@ def index(request):
 def tasks(request):
     if not request.session.get('is_login', None):
         return redirect('/login/', locals())
-    tasks = models.Task.objects.exclude(status=4).order_by("-m_time").all().values()#.all equals select *
+    taskViews.tasks(request)
     return render(request, 'index/tasks.html', locals())
 
 
 def startTask(request):
     if not request.session.get('is_login', None):
         return redirect('/login/', locals())
-    device_id = request.GET.get("id")
-    #add devices
-    if not request.session.has_key('device_id'):
-        request.session['device_id'] = None
-    if device_id:
-        request.session['device_id'] = device_id
-    else:
-        device_id = request.session.get('device_id')
-    devices = models.myDevice.objects.values().filter(id = request.session['device_id'])
-    print(request.session.values())
-    print(request.session['device_id'])
-    print(devices)
+    devices = taskViews.startTask(request)
+    print(type(devices));
+    #print(request.session.values())
+    return render(request, 'index/startTask.html', locals())
 
+
+def startTaskDeleDevices(request):
+    taskViews.deleDevice(request)
     return render(request, 'index/startTask.html', locals())
 
 
