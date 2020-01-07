@@ -30,7 +30,7 @@ def index(request):
 def tasks(request):
     if not request.session.get('is_login', None):
         return redirect('/login/', locals())
-    taskViews.tasks(request)
+    tasks = taskViews.tasks(request)
     return render(request, 'index/tasks.html', locals())
 
 
@@ -38,7 +38,7 @@ def startTask(request):
     if not request.session.get('is_login', None):
         return redirect('/login/', locals())
     devices = taskViews.startTask(request)
-    print(type(devices));
+    print(devices);
     #print(request.session.values())
     return render(request, 'index/startTask.html', locals())
 

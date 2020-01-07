@@ -10,7 +10,7 @@ def tasks(request):
 
 
 def startTask(request):
-    device_id = request.GET.get("id")
+    device_id = request.GET.get("id", None)
     #add devices
     if not request.session.has_key('device_id'):
         request.session['device_id'] = None
@@ -22,6 +22,9 @@ def startTask(request):
     return list(devices)
 
 def deleDevice(request):
-    del request.session['device_id']
+    try:
+        del request.session['device_id']
+    except Exception as e:
+        print(e)
     return True
     

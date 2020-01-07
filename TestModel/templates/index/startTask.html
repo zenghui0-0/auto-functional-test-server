@@ -215,9 +215,10 @@
 {% block script %}
 
 <script>
-console.log('{{ device_id }}');
+//任务添加阶段着色
+console.log('{{ devices }}');
 $(document).ready(function(){
-  if('{{ device_id }}' != "None"){
+  if('{{ devices }}' != ""){
     $("span:contains(Devices)").attr("class","bg-green");
   }else{
   };
