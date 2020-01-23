@@ -51,7 +51,8 @@ def startTaskDeleDevices(request):
 def devices(request):
     if not request.session.get('is_login', None):
         return redirect('/login/', locals())
-    devices = models.myDevice.objects.order_by("-m_time").all().values()#.all equals select *
+    user = request.session.get('user_name')
+    devices = models.myDevice.objects.order_by("-m_time").filter(Owner=user).values()#.all equals select *
     return render(request, 'index/devices.html', locals())
 
 

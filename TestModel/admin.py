@@ -6,7 +6,7 @@ admin.site.site_header = 'WELLCOME'
 admin.site.site_title = 'WELLCOME'
 
 class devicesDisplay(admin.ModelAdmin):
-    list_display = ('HDT_IP', 'tag') # list
+    list_display = ('host_name', 'tag') # list
 
 admin.site.register([Task, User])
 admin.site.register(myDevice, devicesDisplay)
