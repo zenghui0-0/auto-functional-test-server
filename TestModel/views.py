@@ -11,6 +11,8 @@ from . import models, forms
 from . import taskViews
 import hashlib
 
+#devices status
+asset_status = ['Online', 'Offline', 'Unknow', 'Busy']
 # Create your views here.
 
 def hash_code(s, salt='mysite'):# 加点盐
@@ -38,8 +40,14 @@ def startTask(request):
     if not request.session.get('is_login', None):
         return redirect('/login/', locals())
     devices = taskViews.startTask(request)
-    print(devices);
+    if not devices:
+        devices = ""
+    else:
+        for device in devices:
+            status=int(device.get("status"))
+            device["status"] = asset_status[status]
     #print(request.session.values())
+    print(devices);
     return render(request, 'index/startTask.html', locals())
 
 
