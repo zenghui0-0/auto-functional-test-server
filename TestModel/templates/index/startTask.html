@@ -201,7 +201,7 @@
 			
             <div class="modal-footer justify-content-between">
               <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-              <button type="button" class="btn btn-primary">Save changes</button>
+              <button type="button" class="btn btn-primary" onclick="saveDevices()">Save changes</button>
             </div>
           </div>
           <!-- /.modal-content -->
@@ -228,16 +228,10 @@ $(document).ready(function(){
 
 
 <script>
-//模态框modal传值
+//device模态框modal传值
 $("#modal-device").on('shown.bs.modal', function (e) {//赋值
     var Device = $(e.relatedTarget).data('device');//a string 
 	var device = eval('(' + Device + ')'); //a object
-	//console.log(typeof device);
-	//var host_name = device["host_name"];
-	//var DUT_IP = device["DUT_IP"];
-	//var HDT_IP = device["HDT_IP"];
-	//var tag    = device["tag"];
-	//var status = device["status"];
 
 	var modal = $(this);
 	modal.find('#host_name').val(device.host_name);
@@ -246,6 +240,14 @@ $("#modal-device").on('shown.bs.modal', function (e) {//赋值
 	modal.find('#tag').val(device.tag);
 	modal.find('#status').val(device.status);
 });
+
+//save change button
+function saveDevices(){
+console.log("device");
+$('#modal-device').modal('hide');
+alert('Data saved successfully');
+};
+
 </script>
 
 {% endblock %}
