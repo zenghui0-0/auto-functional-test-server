@@ -37,36 +37,15 @@
               {% endif %}
 			
 			  {% csrf_token %}
-			  
-			  <div class="form-group" >
-                {{ device_form.host_name.label_tag }}
-                {{ device_form.host_name }}
-              </div>
-			  
-			  <div class="form-group" >
-                {{ device_form.DUT_IP.label_tag }}
-                {{ device_form.DUT_IP }}
-              </div>
-			
-			  <div class="form-group" >
-                {{ device_form.HDT_IP.label_tag }}
-                {{ device_form.HDT_IP }}
-              </div>
-			  
-			  <div class="form-group" >
-                {{ device_form.tag.label_tag }}
-                {{ device_form.tag }}
-              </div>
-			  
-			  <div class="form-group" >
-                {{ device_form.email.label_tag }}
-                {{ device_form.email }}
-              </div>
-			  
-			  <div class="form-group" >
-                {{ device_form.status.label_tag }}
-                {{ device_form.status }}
-              </div>
+			   
+			  {% for form_item in device_form %}
+
+			    <div class="form-group">
+				  {{ form_item.label_tag }}
+				  {{ form_item }}
+				</div>
+
+			  {% endfor %}
 			  
               <div class="col-12">
                 <a href="/devices/" class="btn btn-secondary">Cancel</a>
