@@ -30,8 +30,7 @@
                 <span class="bg-gray">Devices</span>
               </div>
               <!-- /.timeline-label -->
-			  {% if devices %}
-			    {% for device in devices %}
+			  {% if device %}
                   <!-- timeline item -->
                   <div>
                     <i class="fas fa-tag bg-green"></i>
@@ -53,7 +52,6 @@
                   </div>
 				  
                   <!-- END timeline item -->
-				{% endfor %}
 			  {% else %}
 			    <!-- timeline item -->
                 <div>
@@ -142,68 +140,32 @@
             </div>
 			
             <div class="modal-body" style="height: 100%;">
+			  <form class="card-body" action="" method="post">
 			
-			  <!--div class="form-group">
-                    <label for="lastname" class="col-sm-3 control-label">host_name</label>
-                    <div class="col-sm-7">
-                        <input type="text" class="form-control"  name="{{ device.host_name }}" id="{{ device.host_name }}" required="required"
-                               placeholder="host name of your device">
-                        </input>
-                    </div>
-              </div-->
-			  
-              <div class="form-group">
-                    <label for="lastname" class="col-sm-3 control-label">host_name:</label>
-                    <div class="col-sm-7">
-                        <input type="text" class="form-control"  name="host_name" id="host_name" required="required"
-                               placeholder="host name of your device">
-                        </input>
-                    </div>
+			  {% if device_form.captcha.errors %}
+                <div class="alert alert-warning">{{ device_form.captcha.errors }}</div>
+              {% elif message %}
+                <div class="alert alert-warning">{{ message }}</div>
+              {% endif %}
+			
+			  {% csrf_token %}
+			   
+			  {% for item in device_form %}
+
+			    <div class="form-group">
+				  {{ item.label_tag }}
+				  {{ item }}
+				</div>
+
+			  {% endfor %}
+
+			  <div class="modal-footer justify-content-between">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                <button type="submit" class="btn btn-primary" >Save changes</button>
               </div>
 
-			  <div class="form-group">
-                    <label for="lastname" class="col-sm-3 control-label">DUT IP:</label>
-                    <div class="col-sm-7">
-                        <input type="text" class="form-control"  name="DUT_IP" id="DUT_IP" required="required"
-                               placeholder="">
-                        </input>
-                    </div>
-              </div>
-			  
-			  <div class="form-group">
-                    <label for="lastname" class="col-sm-3 control-label">HDT IP:</label>
-                    <div class="col-sm-7">
-                        <input type="text" class="form-control"  name="HDT_IP" id="HDT_IP" required="required"
-                               placeholder="">
-                        </input>
-                    </div>
-              </div>
-
-			  <div class="form-group">
-                    <label for="lastname" class="col-sm-3 control-label">Tag:</label>
-                    <div class="col-sm-7">
-                        <input type="text" class="form-control"  name="tag" id="tag" required="required"
-                               placeholder="">
-                        </input>
-                    </div>
-              </div>
-			  
-			  <div class="form-group">
-                    <label for="lastname" class="col-sm-3 control-label">Status:</label>
-                    <div class="col-sm-7">
-                        <input type="text" class="form-control"  name="status" id="status" required="required"
-                               placeholder="">
-                        </input>
-                    </div>
-              </div>
-			  
+              </form>
             </div>
-			
-            <div class="modal-footer justify-content-between">
-              <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-              <button type="button" class="btn btn-primary" onclick="saveDevices()">Save changes</button>
-            </div>
-          </div>
           <!-- /.modal-content -->
         </div>
         <!-- /.modal-dialog -->
@@ -217,9 +179,9 @@
 
 <script>
 //任务添加阶段着色
-console.log('{{ devices }}');
+//console.log('{{ device }}');
 $(document).ready(function(){
-  if('{{ devices }}' != ""){
+  if('{{ device }}' != ""){
     $("span:contains(Devices)").attr("class","bg-green");
   }else{
   };
@@ -227,7 +189,7 @@ $(document).ready(function(){
 </script>
 
 
-<script>
+<!--script>
 //device模态框modal传值
 $("#modal-device").on('shown.bs.modal', function (e) {//赋值
     var Device = $(e.relatedTarget).data('device');//a string 
@@ -241,13 +203,6 @@ $("#modal-device").on('shown.bs.modal', function (e) {//赋值
 	modal.find('#status').val(device.status);
 });
 
-//save change button
-function saveDevices(){
-console.log("device");
-$('#modal-device').modal('hide');
-alert('Data saved successfully');
-};
-
-</script>
+</script-->
 
 {% endblock %}

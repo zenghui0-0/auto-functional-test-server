@@ -9,18 +9,6 @@ def tasks(request):
     return tasks
 
 
-def startTask(request):
-    device_id = request.GET.get("id", None)
-    #add devices
-    if not request.session.has_key('device_id'):
-        request.session['device_id'] = None
-    if device_id:
-        request.session['device_id'] = device_id
-    else:
-        device_id = request.session.get('device_id')
-    devices = models.myDevice.objects.filter(id = request.session['device_id']).values('DUT_IP', 'HDT_IP', 'host_name', 'tag', 'status')
-    return list(devices)
-
 def deleDevice(request):
     try:
         del request.session['device_id']

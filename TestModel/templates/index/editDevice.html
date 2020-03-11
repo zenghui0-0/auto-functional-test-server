@@ -38,11 +38,11 @@
 			
 			  {% csrf_token %}
 			   
-			  {% for form_item in device_form %}
+			  {% for item in device_form %}
 
 			    <div class="form-group">
-				  {{ form_item.label_tag }}
-				  {{ form_item }}
+				  {{ item.label_tag }}
+				  {{ item }}
 				</div>
 
 			  {% endfor %}
