@@ -90,7 +90,7 @@ def devices(request):
     return render(request, 'index/devices.html', locals())
 
 
-def editDevice(request):
+def addDevice(request):
     if not request.session.get('is_login', None):
         return redirect('/login/', locals())
     id = request.GET.get("id")
@@ -123,12 +123,12 @@ def editDevice(request):
 
             return redirect('/devices/')
         else:
-            return render(request, 'index/editDevice.html', locals())   
+            return render(request, 'index/addDevice.html', locals())   
     else:
         device_form = forms.DevicesForm(initial=device)
-        return render(request, 'index/editDevice.html', locals())
+        return render(request, 'index/addDevice.html', locals())
     device_form = forms.DevicesForm()
-    return render(request, 'index/editDevice.html', locals())
+    return render(request, 'index/addDevice.html', locals())
 
 
 def deleDevice(request):
