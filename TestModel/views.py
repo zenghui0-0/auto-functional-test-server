@@ -41,6 +41,7 @@ def startTask(request):
         return redirect('/login/', locals())
     id = request.GET.get("id")
     device = models.myDevice.objects.values().filter(id=id).first()
+    device_form = forms.DevicesForm()
     if request.method == 'POST':
         device_form = forms.DevicesForm(request.POST)
         message = 'please check input content!'
@@ -73,7 +74,6 @@ def startTask(request):
     else:
         device_form = forms.DevicesForm(initial=device)
         return render(request, 'index/startTask.html', locals())
-    device_form = forms.DevicesForm()
     return render(request, 'index/startTask.html', locals())
 
 
@@ -95,6 +95,7 @@ def addDevice(request):
         return redirect('/login/', locals())
     id = request.GET.get("id")
     device = models.myDevice.objects.values().filter(id=id).first()
+    device_form = forms.DevicesForm()
     if request.method == 'POST':
         device_form = forms.DevicesForm(request.POST)
         message = 'please check input content!'
@@ -127,7 +128,6 @@ def addDevice(request):
     else:
         device_form = forms.DevicesForm(initial=device)
         return render(request, 'index/addDevice.html', locals())
-    device_form = forms.DevicesForm()
     return render(request, 'index/addDevice.html', locals())
 
 

@@ -13,8 +13,6 @@
 			
 			  {% if device_form.captcha.errors %}
                 <div class="alert alert-warning">{{ device_form.captcha.errors }}</div>
-              {% elif message %}
-                <div class="alert alert-warning">{{ message }}</div>
               {% endif %}
 			
 			  {% csrf_token %}
