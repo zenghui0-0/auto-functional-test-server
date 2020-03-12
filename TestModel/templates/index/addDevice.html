@@ -1,0 +1,84 @@
+{% extends "./_TestModel_templates.html" %}
+{% load static %}
+
+{% block title %}Devices{% endblock %}
+
+{% block css %}
+<link rel="stylesheet" href="{% static 'ionicons/2.0.1/css/ionicons.min.css' %}">
+<link rel="stylesheet" href="{% static 'plugins/datatables-bs4/css/dataTables.bootstrap4.css' %}">
+{% endblock %}
+
+
+
+<!-- head content -->
+{% block headname %}
+	<h1 class="m-0 text-dark">Edit device</h1>		
+{% endblock headname %}
+
+{% block active-page %}
+   <li class="breadcrumb-item"><a href="/devices/">My devices</a></li>
+   <li class="breadcrumb-item active">Add device</li>
+{% endblock active-page %}
+
+{% block content %}
+
+	<!-- Main content -->
+    <section class="content">
+      <div class="row">
+        <div class="col-md-6">
+          <div class="card card-primary">
+		  
+            <form class="card-body" action="" method="post">
+			
+			  {% if device_form.captcha.errors %}
+                <div class="alert alert-warning">{{ device_form.captcha.errors }}</div>
+              {% elif message %}
+                <div class="alert alert-warning">{{ message }}</div>
+              {% endif %}
+			
+			  {% csrf_token %}
+			   
+			  {% for item in device_form %}
+
+			    <div class="form-group">
+				  {{ item.label_tag }}
+				  {{ item }}
+				</div>
+
+			  {% endfor %}
+			  
+              <div class="col-12">
+                <a href="/devices/" class="btn btn-secondary">Cancel</a>
+			    <button type="submit" class="btn btn-success float-right">Save</button>
+              </div>
+
+            </form>
+
+          </div>
+        </div>
+      </div>
+    </section>
+   <!-- /.content -->
+
+{% endblock content %}
+
+{% block script %}
+<script>
+  $(function () {
+    $("#example1").DataTable();
+    $('#example2').DataTable({
+      "paging": true,
+      "lengthChange": true,
+      "searching": false,
+      "ordering": true,
+      "info": true,
+      "autoWidth": false,
+    });
+  });
+</script>
+<!-- DataTables -->
+<script src="{% static 'plugins/datatables/jquery.dataTables.js' %}"></script>
+<script src="{% static 'plugins/datatables-bs4/js/dataTables.bootstrap4.js' %}"></script>
+<!-- AdminLTE for demo purposes -->
+<script src="{% static 'dist/js/demo.js' %}"></script>
+{% endblock %}
