@@ -87,7 +87,7 @@
                       You can view device details or cancel this by following buttons
                     </div>
                     <div class="timeline-footer">
-					  <button type="button" class="btn btn-primary" data-toggle="modal" data-device="{{ device }}" data-target="#modal-device">
+					  <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modal-device">
                         view details
 					  </button>
                       <a class="btn btn-danger btn-sm">Delete</a>
@@ -129,48 +129,8 @@
   </div>
   <!-- /.content-wrapper -->
   
-  <div class="modal fade" id="modal-device">
-        <div class="modal-dialog">
-          <div class="modal-content">
-            <div class="modal-header">
-              <h4 class="modal-title">Device Info:</h4>
-              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                <span aria-hidden="true">&times;</span>
-              </button>
-            </div>
-			
-            <div class="modal-body" style="height: 100%;">
-			  <form class="card-body" action="" method="post">
-			
-			  {% if device_form.captcha.errors %}
-                <div class="alert alert-warning">{{ device_form.captcha.errors }}</div>
-              {% elif message %}
-                <div class="alert alert-warning">{{ message }}</div>
-              {% endif %}
-			
-			  {% csrf_token %}
-			   
-			  {% for item in device_form %}
-
-			    <div class="form-group">
-				  {{ item.label_tag }}
-				  {{ item }}
-				</div>
-
-			  {% endfor %}
-
-			  <div class="modal-footer justify-content-between">
-                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                <button type="submit" class="btn btn-primary" >Save changes</button>
-              </div>
-
-              </form>
-            </div>
-          <!-- /.modal-content -->
-        </div>
-        <!-- /.modal-dialog -->
-      </div>
-      <!-- /.modal -->
+{% include "./edit_devices_in_modal.html" %}
+   
 {% endblock content %}
 
 
@@ -179,9 +139,9 @@
 
 <script>
 //任务添加阶段着色
-//console.log('{{ device }}');
+console.log('{{ device }}');
 $(document).ready(function(){
-  if('{{ device }}' != ""){
+  if('{{ device }}' != "None" && '{{ device }}' != ""){
     $("span:contains(Devices)").attr("class","bg-green");
   }else{
   };

@@ -1,4 +1,4 @@
-  <div class="modal fade" id="modal-device">
+      <div class="modal fade" id="modal-device">
         <div class="modal-dialog">
           <div class="modal-content">
             <div class="modal-header">
@@ -9,105 +9,7 @@
             </div>
 			
             <div class="modal-body" style="height: 100%;">
-			
-			  <div class="form-group">
-                    <label for="lastname" class="col-sm-3 control-label">host_name</label>
-                    <div class="col-sm-7">
-                        <input type="text" class="form-control"  name="{{ device.host_name }}" id="{{ device.host_name }}" required="required"
-                               placeholder="host name of your device">
-                        </input>
-                    </div>
-              </div>
-
-                <div class="form-group">
-                    <label for="lastname" class="col-sm-3 control-label">版本号</label>
-                    <div class="col-sm-7">
-                        <input type="text" class="form-control"  name="version" id="version" required="required"
-                               placeholder="请输入当前版本号">
-                        </input>
-                    </div>
-                </div>
-
-                 <div class="form-group">
-                    <label for="firstname" class="col-sm-3 control-label">转测时间</label>
-                     <div class='input-group col-sm-7 date' id='datetimepicker2'>
-{#                     <div class="col-sm-7" id='datetimepicker2'>#}
-                         <input type='text' class="form-control" name="submit_test_time" id="submit_test_time" required="required">
-                         <span class="input-group-addon">
-                             <span class="glyphicon glyphicon-calendar"></span>
-                         </span>
-                     </div>
-
-                 </div>
-
-                <div class="form-group">
-                    <label for="lastname" class="col-sm-3 control-label">用例总数</label>
-                    <div class="col-sm-7">
-                        <input type="text" class="form-control"  name="case_num" id="case_num" required="required" oninput="value=value.replace(/[^\d]/g,'')"
-                               placeholder="请输入冒烟用例总数">
-                        </input>
-                    </div>
-                </div>
-
-                 <div class="form-group">
-                    <label for="firstname" class="col-sm-3 control-label">执行总数</label>
-                    <div class="col-sm-7">
-                        <input type="text" class="form-control"  name="executed_num" id="executed_num" required="required" oninput="value=value.replace(/[^\d]/g,'')"
-                               placeholder="请输入已执行用例数">
-                    </div>
-                </div>
-
-                <div class="form-group">
-                    <label for="lastname" class="col-sm-3 control-label">成功数</label>
-                    <div class="col-sm-7">
-                        <input type="text" class="form-control"  name="pass_num" id="pass_num" required="required" oninput="value=value.replace(/[^\d]/g,'')"
-                               placeholder="请输入已执行成功数">
-                        </input>
-                    </div>
-                </div>
-
-                <div class="form-group">
-                    <label for="lastname" class="col-sm-3 control-label">失败数</label>
-                    <div class="col-sm-7">
-                        <input type="text" class="form-control"  name="fail_num" id="fail_num" required="required" oninput="value=value.replace(/[^\d]/g,'')"
-                               placeholder="请输入已执行失败数">
-                        </input>
-                    </div>
-                </div>
-
-				<div class="form-group">
-                    <label for="firstname" class="col-sm-3 control-label">项目名称</label>
-                    <div class="col-sm-7">
-                    <select data-placeholder="选择项目..." class="form-control" name="project_name" id="project_name" required="required">
-                                    <option value="">请选择项目</option>
-                                    {% for key,value in project_data.items %}
-                                    <option value="{{ value }}" hassubinfo="true">{{ key }}</option>
-                                    {% endfor %}
-                                </select>
-
-                    </div>
-                </div>
-
-            </div>
-			
-            <div class="modal-footer justify-content-between">
-              <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-              <button type="button" class="btn btn-primary">Save changes</button>
-            </div>
-          </div>
-          <!-- /.modal-content -->
-        </div>
-        <!-- /.modal-dialog -->
-      </div>
-      <!-- /.modal -->
-
-	<!-- Main content -->
-    <section class="content">
-      <div class="row">
-        <div class="col-md-6">
-          <div class="card card-primary">
-		  
-            <form class="card-body" action="" method="post">
+			  <form class="card-body" action="" method="post">
 			
 			  {% if device_form.captcha.errors %}
                 <div class="alert alert-warning">{{ device_form.captcha.errors }}</div>
@@ -116,69 +18,25 @@
               {% endif %}
 			
 			  {% csrf_token %}
-			  
-			  <div class="form-group" >
-                {{ device_form.host_name.label_tag }}
-                {{ device_form.host_name }}
-              </div>
-			  
-			  <div class="form-group" >
-                {{ device_form.DUT_IP.label_tag }}
-                {{ device_form.DUT_IP }}
-              </div>
-			
-			  <div class="form-group" >
-                {{ device_form.HDT_IP.label_tag }}
-                {{ device_form.HDT_IP }}
-              </div>
-			  
-			  <div class="form-group" >
-                {{ device_form.tag.label_tag }}
-                {{ device_form.tag }}
-              </div>
-			  
-			  <div class="form-group" >
-                {{ device_form.email.label_tag }}
-                {{ device_form.email }}
-              </div>
-			  
-			  <div class="form-group" >
-                {{ device_form.status.label_tag }}
-                {{ device_form.status }}
-              </div>
-			  
-              <div class="col-12">
-                <a href="/devices/" class="btn btn-secondary">Cancel</a>
-			    <button type="submit" class="btn btn-success float-right">Save</button>
+			   
+			  {% for item in device_form %}
+
+			    <div class="form-group">
+				  {{ item.label_tag }}
+				  {{ item }}
+				</div>
+
+			  {% endfor %}
+
+			  <div class="modal-footer justify-content-between">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                <button type="submit" class="btn btn-primary" >Save changes</button>
               </div>
 
-            </form>
-
-          </div>
+              </form>
+            </div>
+          <!-- /.modal-content -->
         </div>
+        <!-- /.modal-dialog -->
       </div>
-    </section>
-   <!-- /.content -->
-
-{% endblock content %}
-
-{% block script %}
-<script>
-  $(function () {
-    $("#example1").DataTable();
-    $('#example2').DataTable({
-      "paging": true,
-      "lengthChange": true,
-      "searching": false,
-      "ordering": true,
-      "info": true,
-      "autoWidth": false,
-    });
-  });
-</script>
-<!-- DataTables -->
-<script src="{% static 'plugins/datatables/jquery.dataTables.js' %}"></script>
-<script src="{% static 'plugins/datatables-bs4/js/dataTables.bootstrap4.js' %}"></script>
-<!-- AdminLTE for demo purposes -->
-<script src="{% static 'dist/js/demo.js' %}"></script>
-{% endblock %}
+      <!-- /.modal -->
