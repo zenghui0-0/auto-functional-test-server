@@ -10,6 +10,7 @@ from django.forms.models import model_to_dict
 from . import models, forms
 from . import taskViews
 import hashlib
+import datetime
 
 #devices status
 asset_status = ['Online', 'Offline', 'Unknow', 'Busy']
@@ -40,7 +41,12 @@ def startTask(request):
     if not request.session.get('is_login', None):
         return redirect('/login/', locals())
     id = request.GET.get("id")
-    device = models.myDevice.objects.values().filter(id=id).first()
+    if id:
+        request.session['device_id'] = id
+        request.session['device_add_time'] = datetime.datetime.now().strftime("%H:%M:%S %p")
+    device_id = request.session.get('device_id', None)
+    device_add_time = request.session.get('device_add_time', '0:00')
+    device = models.myDevice.objects.values().filter(id=device_id).first()
     device_form = forms.DevicesForm()
     if request.method == 'POST':
         device_form = forms.DevicesForm(request.POST)
