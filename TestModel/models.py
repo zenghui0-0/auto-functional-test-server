@@ -58,4 +58,7 @@ class Task(models.Model):
     tag       = models.SlugField(max_length=100, null=True, blank=True, help_text='For example: John_3dmark_11_12')
     status    = models.SmallIntegerField(choices=task_status, default=0, verbose_name='task status')
     m_time    = models.DateTimeField(auto_now=True, verbose_name='update time')
+
+
+
     

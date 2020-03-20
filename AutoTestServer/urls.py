@@ -39,5 +39,6 @@ urlpatterns = [
     path('devices/deleDevice/', views.deleDevice),
     path('login/', views.login),
     path('register/', views.register),
-    path('logout/', views.logout)
+    path('logout/', views.logout),
+    path('email/', views.email)
 ]

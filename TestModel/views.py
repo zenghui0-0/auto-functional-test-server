@@ -9,12 +9,19 @@ from django.contrib.auth.models import User
 from django.forms.models import model_to_dict
 from . import models, forms
 from . import taskViews
+from .tasks import email_,file_task
 import hashlib
 import datetime
 
-#devices status
-asset_status = ['Online', 'Offline', 'Unknow', 'Busy']
 # Create your views here.
+#异步发邮件
+def email(request):
+    print(email_.delay())
+    return HttpResponse("异步发邮件")
+#异步写入文件
+def failtask(request):
+    print(file_task.delay())
+    return HttpResponse("success")
 
 def hash_code(s, salt='mysite'):# 加点盐
     h = hashlib.sha256()
