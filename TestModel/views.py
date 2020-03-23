@@ -1,8 +1,9 @@
-"""
+F"""
 Autor:Zeng Hui
 Date: 11/11/2019
 mail: zenghui0_0@163.com
 """
+from django.http import HttpResponse
 from django.shortcuts import render
 from django.shortcuts import redirect
 from django.contrib.auth.models import User
@@ -12,12 +13,14 @@ from . import taskViews
 from .tasks import email_,file_task
 import hashlib
 import datetime
+import time
 
 # Create your views here.
 #异步发邮件
 def email(request):
-    print(email_.delay())
-    return HttpResponse("异步发邮件")
+    res = email_()
+    time.sleep(2)
+    return HttpResponse("异步发邮件, {}".format(res))
 #异步写入文件
 def failtask(request):
     print(file_task.delay())

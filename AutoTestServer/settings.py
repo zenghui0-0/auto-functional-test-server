@@ -19,10 +19,10 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 #djcelery settings
 djcelery.setup_loader()
-BROKER_URL = 'django://'
+BROKER_URL = 'redis://127.0.0.1:6379/0' #clery4 版本用来代替CELERY_BROKER_URL
 CELERY_BROKER_URL = 'redis://localhost:6379/1'
-#CELERY_RESULT_BACKEND = 'redis://localhost:6379/0'
-CELERY_RESULT_BACKEND = 'django-db'
+CELERY_RESULT_BACKEND = 'redis://localhost:6379/0'
+#CELERY_RESULT_BACKEND = 'django-db'
 CELERY_CACHE_BACKEND = 'django-cache'
 CELERY_IMPORTS = ('TestModel.tasks') #需执行异步的子应用
 # django setting.
@@ -144,4 +144,13 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/2.2/howto/static-files/
 
 STATIC_URL = '/static/'
+
+# email settings
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_USE_TLS = False
+EMAIL_HOST = 'smtp.tuweizhong.com'
+EMAIL_PORT = 25
+EMAIL_HOST_USER = 'mail@tuweizhong.com'
+EMAIL_HOST_PASSWORD = 'xxxx'
+DEFAULT_FROM_EMAIL = 'QAcenter@amd.com'
 
