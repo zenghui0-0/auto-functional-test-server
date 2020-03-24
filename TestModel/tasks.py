@@ -1,6 +1,7 @@
+from __future__ import absolute_import, unicode_literals
 import time,random
 from celery import task
-#发邮件
+from celery import shared_task
 from django.core.mail import send_mail
 from django.http import HttpResponse
 
@@ -31,3 +32,8 @@ def email_():
                 return HttpResponse("发送成功")
         else:
                 return HttpResponse("发送失败")
+
+@task
+def add(x, y):
+    print("{} + {} = {})".format(x,y,x+y))
+    return (x + y)

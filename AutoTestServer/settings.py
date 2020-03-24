@@ -19,11 +19,13 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 #djcelery settings
 djcelery.setup_loader()
-BROKER_URL = 'redis://127.0.0.1:6379/0' #clery4 版本用来代替CELERY_BROKER_URL
+CELERY_TIMEZONE = 'Asia/Shanghai'
+BROKER_URL = 'redis://localhost:6379/0' #clery4 版本用来代替CELERY_BROKER_URL
 CELERY_BROKER_URL = 'redis://localhost:6379/1'
 CELERY_RESULT_BACKEND = 'redis://localhost:6379/0'
 #CELERY_RESULT_BACKEND = 'django-db'
 CELERY_CACHE_BACKEND = 'django-cache'
+CELERY_RESULT_SERIALIZER = 'json'
 CELERY_IMPORTS = ('TestModel.tasks') #需执行异步的子应用
 # django setting.
 CACHES = {
@@ -131,7 +133,7 @@ AUTH_PASSWORD_VALIDATORS = [
 
 LANGUAGE_CODE = 'en-us'
 
-TIME_ZONE = 'UTC'
+TIME_ZONE = 'Asia/Shanghai'
 
 USE_I18N = True
 

@@ -3,28 +3,26 @@ Autor:Zeng Hui
 Date: 11/11/2019
 mail: zenghui0_0@163.com
 """
-from django.http import HttpResponse
+from django.http import HttpResponse, JsonResponse
 from django.shortcuts import render
 from django.shortcuts import redirect
 from django.contrib.auth.models import User
 from django.forms.models import model_to_dict
 from . import models, forms
 from . import taskViews
-from .tasks import email_,file_task
+from .tasks import *
 import hashlib
 import datetime
 import time
+from AutoTestServer.celery import app
 
 # Create your views here.
-#异步发邮件
-def email(request):
-    res = email_()
+def Add(request):
+    res = add.delay(3, 4)
+    #print(dir(res))
     time.sleep(2)
-    return HttpResponse("异步发邮件, {}".format(res))
-#异步写入文件
-def failtask(request):
-    print(file_task.delay())
-    return HttpResponse("success")
+    return HttpResponse(res.task_id)
+
 
 def hash_code(s, salt='mysite'):# 加点盐
     h = hashlib.sha256()
