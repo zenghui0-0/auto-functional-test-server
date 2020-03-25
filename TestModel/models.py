@@ -59,6 +59,3 @@ class Task(models.Model):
     status    = models.SmallIntegerField(choices=task_status, default=0, verbose_name='task status')
     m_time    = models.DateTimeField(auto_now=True, verbose_name='update time')
 
-
-
-    

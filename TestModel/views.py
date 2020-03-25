@@ -3,6 +3,10 @@ Autor:Zeng Hui
 Date: 11/11/2019
 mail: zenghui0_0@163.com
 """
+import sys
+import time
+import datetime
+import hashlib
 from django.http import HttpResponse, JsonResponse
 from django.shortcuts import render
 from django.shortcuts import redirect
@@ -11,18 +15,14 @@ from django.forms.models import model_to_dict
 from . import models, forms
 from . import taskViews
 from .tasks import *
-import hashlib
-import datetime
-import time
 from AutoTestServer.celery import app
 
 # Create your views here.
 def Add(request):
     res = add.delay(3, 4)
     #print(dir(res))
-    time.sleep(2)
+    time.sleep(60)
     return HttpResponse(res.task_id)
-
 
 def hash_code(s, salt='mysite'):# 加点盐
     h = hashlib.sha256()

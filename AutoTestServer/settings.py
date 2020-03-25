@@ -22,8 +22,8 @@ djcelery.setup_loader()
 CELERY_TIMEZONE = 'Asia/Shanghai'
 BROKER_URL = 'redis://localhost:6379/0' #clery4 版本用来代替CELERY_BROKER_URL
 CELERY_BROKER_URL = 'redis://localhost:6379/1'
-CELERY_RESULT_BACKEND = 'redis://localhost:6379/0'
-#CELERY_RESULT_BACKEND = 'django-db'
+#CELERY_RESULT_BACKEND = 'redis://localhost:6379/0'
+CELERY_RESULT_BACKEND = 'django-db'
 CELERY_CACHE_BACKEND = 'django-cache'
 CELERY_RESULT_SERIALIZER = 'json'
 CELERY_IMPORTS = ('TestModel.tasks') #需执行异步的子应用

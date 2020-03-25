@@ -4,6 +4,6 @@
 2, data base: redis, mysql should installed and start first;
 
 [START APPS]
-celery -A AutoTestServer worker --pool=solo -l info
+celery -A AutoTestServer worker --pool=solo -l info --concurrency=10
 celery worker -A AutoTestServer -l debug
 python manage.py runserver
