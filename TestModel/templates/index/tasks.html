@@ -3,7 +3,10 @@
 
 {% block title %}Tasks{% endblock %}
 
-{% block css %}{% endblock %}
+{% block css %}
+<link rel="stylesheet" href="{% static 'ionicons/2.0.1/css/ionicons.min.css' %}">
+<link rel="stylesheet" href="{% static 'plugins/datatables-bs4/css/dataTables.bootstrap4.css' %}">
+{% endblock %}
 
 
 <!-- head content -->
@@ -19,28 +22,18 @@
 <!-- Main content -->
 	  <section class="content">
       <div class="row">
-          <div class="col-12">
-            <div class="card">
-              <div class="card-header">
-                <h3 class="card-title"></h3>
-
-                <div class="card-tools">
-                  <div class="input-group input-group-sm" style="width: 150px;">
-                    <input type="text" name="table_search" class="form-control float-right" placeholder="Search">
-
-                    <div class="input-group-append">
-                      <button type="submit" class="btn btn-default"><i class="fas fa-search"></i></button>
-                    </div>
-                  </div>
-                </div>
-              </div>
-              <!-- /.card-header -->
-            <div class="card-body table-responsive p-0">
-                <table class="table table-hover">
-                  <thead>
+        <div class="col-12">
+          <div class="card">
+            <div class="card-header">
+              <h3 class="card-title"></h3>
+            </div>
+            <!-- /.card-header -->
+            <div class="card-body p-0">
+              <table id="example1" class="table table-bordered table-striped">
+                <thead>
                 <tr>
                   <th>No.</th>
-                  <th>name</th>
+                  <th>ID</th>
                   <th>progress</th>
 				  <th>Status</th>
 				  <th>Opration</th>
@@ -51,14 +44,14 @@
                 </thead>
                 <tbody>
 				
-				{% for task in tasks %}
+				{% for result in results %}
 	            <tr>
-                  <td>{{ forloop.counter }}</td>
+                  <td>{{ result.id }}</td>
                   <td>
-				    <a  href="#">{{ task.name |slice:":12"  }}</a>
+				    <a  href="#">{{ result.task_id |slice:":7"  }}</a>
 				  </td>
                   <td>
-					{% if task.status == 1 %}
+					{% if result.status == 1 %}
 					  <div class="progress progress-sm">
                         <div class="progress-bar bg-red" role="progressbar" aria-volumenow={{ task.progress }} aria-volumemin="0" aria-volumemax="100" style="width: {{ task.progress }}%">
                       </div>
@@ -77,52 +70,28 @@
 					{% endif %}
 				  </td>
 				  
-				  {% if task.status == 0 %}
+				  {% if result.status == "SUCCESS" %}
 				    <td class="project-state">
-				      <span class="badge badge-success">Pass</span>
+				      <span class="badge badge-success">SUCCESS</span>
 				    </td>
 				    <td>
 					  <a class="btn btn-primary btn-sm" href="#">
                         <i class="fas fa-folder">Log</i>
                       </a>
 				    </td>
-				  {% elif task.status == 1 %}
+				  {% elif result.status == "FAILURE" %}
 				    <td class="project-state">
-					  <span class="badge badge-danger">Fail</span>
+					  <span class="badge badge-danger">FAILURE</span>
 					</td>
 					<td>
 					  <a class="btn btn-primary btn-sm" href="#">
                         <i class="fas fa-folder">Log</i>
-                      </a>
-					</td>
-			      {% elif task.status == 2 %}
-				    <td class="project-state">
-					  <span class="badge badge-success">Running</span>
-					</td>
-					<td>
-					  <a class="btn btn-primary btn-sm" href="#">
-                        <i class="fas fa-folder">Log</i>
-                      </a>
-					  <a class="btn btn-primary btn-sm" href="#">
-                        <i class="fas fa-pause">Pause</i>
-                      </a>
-					</td>
-				  {% elif task.status == 3 %}
-				    <td class="project-state">
-					  <span class="badge badge-secondary">Pause</span>
-					</td>
-					<td>
-					  <a class="btn btn-primary btn-sm" href="#">
-                        <i class="fas fa-folder">Log</i>
-                      </a>
-					  <a class="btn btn-primary btn-sm" href="#">
-                        <i class="fas fa-play">Resume</i>
                       </a>
 					</td>
 				  {% endif %}
 				  
-				  <td>{{ task.Owner }}</td>
-				  <td>{{ task.m_time }}</td>
+				  <td>{{ result.Owner }}</td>
+				  <td>{{ result.date_created }}</td>
                 </tr>
 	            {% endfor %}
 
@@ -140,4 +109,23 @@
 
 {% endblock content %}
 
-{% block script %} {% endblock %}
+{% block script %} 
+<script>
+  $(function () {
+    $("#example1").DataTable();
+    $('#example2').DataTable({
+      "paging": true,
+      "lengthChange": true,
+      "searching": false,
+      "ordering": true,
+      "info": true,
+      "autoWidth": false,
+    });
+  });
+</script>
+<!-- DataTables -->
+<script src="{% static 'plugins/datatables/jquery.dataTables.js' %}"></script>
+<script src="{% static 'plugins/datatables-bs4/js/dataTables.bootstrap4.js' %}"></script>
+<!-- AdminLTE for demo purposes -->
+<script src="{% static 'dist/js/demo.js' %}"></script>
+{% endblock %}

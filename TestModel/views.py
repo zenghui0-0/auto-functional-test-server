@@ -41,7 +41,7 @@ def index(request):
 def tasks(request):
     if not request.session.get('is_login', None):
         return redirect('/login/', locals())
-    tasks = taskViews.tasks(request)
+    results = taskViews.tasks(request)
     return render(request, 'index/tasks.html', locals())
 
 
