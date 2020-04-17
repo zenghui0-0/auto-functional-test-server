@@ -10,6 +10,7 @@ import hashlib
 from django.http import HttpResponse, JsonResponse
 from django.shortcuts import render
 from django.shortcuts import redirect
+from django.contrib  import  auth
 from django.contrib.auth.models import User
 from django.forms.models import model_to_dict
 from . import models, forms
@@ -19,6 +20,9 @@ from AutoTestServer.celery import app
 
 # Create your views here.
 def Add(request):
+    if not request.session.get('is_login', None):
+        return redirect('/login/', locals())
+    user = request.session['user_name']
     res = add.delay(3, 4)
     #print(dir(res))
     time.sleep(60)
@@ -160,19 +164,16 @@ def login(request):
         if login_form.is_valid():
             username = login_form.cleaned_data.get('username')
             password = login_form.cleaned_data.get('password')
-            try:
-                user = models.User.objects.get(name=username)
-            except:
-                message = 'username not exist!'
-                return render(request, 'login/login.html', locals())
+            user_obj = auth.authenticate(username=username, password=password)
 
-            if user.password == hash_code(password):
+            if user_obj:
+                auth.login(request, user_obj)
                 request.session['is_login'] = True
-                request.session['user_id'] = user.id
-                request.session['user_name'] = user.name
+                #request.session['user_id'] = user
+                request.session['user_name'] = username
                 return redirect('/index/')
             else:
-                message = 'incorrect password!'
+                message = 'incorrect password or user name!'
                 return render(request, 'login/login.html', locals())
         else:
             return render(request, 'login/login.html', locals())
@@ -197,22 +198,11 @@ def register(request):
             if password1 != password2:
                 message = 'please enter same password'
                 return render(request, 'login/register.html', locals())
+            if User.objects.filter(username=username).exists():
+                message = 'username already exists'
+                return render(request, 'login/register.html', locals())
             else:
-                same_name_user = models.User.objects.filter(name=username)
-                if same_name_user:
-                    message = 'username already exists'
-                    return render(request, 'login/register.html', locals())
-                same_email_user = models.User.objects.filter(email=email)
-                if same_email_user:
-                    message = 'email address been used'
-                    return render(request, 'login/register.html', locals())
-
-                new_user = models.User()
-                new_user.name = username
-                new_user.password = hash_code(password1)
-                new_user.email = email
-                #new_user.sex = sex
-                new_user.save()
+                new_obj = User.objects.create_user(username=username, password=password1, email=email)
                 return redirect('/login/')
         else:
             return render(request, 'login/register.html', locals())
