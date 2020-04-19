@@ -12,36 +12,9 @@ https://docs.djangoproject.com/en/2.2/ref/settings/
 """
 
 import os
-import djcelery
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-
-#djcelery settings
-djcelery.setup_loader()
-CELERY_TIMEZONE = 'Asia/Shanghai'
-BROKER_URL = 'redis://localhost:6379/0' #clery4 版本用来代替CELERY_BROKER_URL
-CELERY_BROKER_URL = 'redis://localhost:6379/1'
-#CELERY_RESULT_BACKEND = 'redis://localhost:6379/0'
-CELERY_RESULT_BACKEND = 'django-db'
-CELERY_CACHE_BACKEND = 'django-cache'
-CELERY_RESULT_SERIALIZER = 'json'
-CELERY_IMPORTS = ('TestModel.tasks') #需执行异步的子应用
-# django setting.
-CACHES = {
-    'default': {
-        'BACKEND': 'django.core.cache.backends.db.DatabaseCache',
-        'LOCATION': 'my_cache_table',
-    }
-}
-# Quick-start development settings - unsuitable for production
-# See https://docs.djangoproject.com/en/2.2/howto/deployment/checklist/
-
-# SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'bt^a3!nb#ygg251ald_*^1gjs@mac+njn-7enjohj_t!aynb_)'
-
-# SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
 
 ALLOWED_HOSTS = ['*'] ##*
 
@@ -58,8 +31,17 @@ INSTALLED_APPS = [
     'django_celery_results',
     'TestModel',
     'djcelery',
-    
 ]
+
+#djcelery settings
+from .celeryconfig import *
+BROKER_BACKEND = 'redis'
+
+# SECURITY WARNING: keep the secret key used in production secret!
+SECRET_KEY = 'bt^a3!nb#ygg251ald_*^1gjs@mac+njn-7enjohj_t!aynb_)'
+
+# SECURITY WARNING: don't run with debug turned on in production!
+DEBUG = True
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -155,4 +137,3 @@ EMAIL_PORT = 25
 EMAIL_HOST_USER = 'mail@tuweizhong.com'
 EMAIL_HOST_PASSWORD = 'xxxx'
 DEFAULT_FROM_EMAIL = 'QAcenter@amd.com'
-
