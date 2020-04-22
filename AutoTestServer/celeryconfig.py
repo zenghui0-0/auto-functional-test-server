@@ -4,13 +4,21 @@ import datetime
 djcelery.setup_loader()
 
 CELERY_TIMEZONE = 'Asia/Shanghai'
-BROKER_URL = 'redis://localhost:6379/0' #clery4 版本用来代替CELERY_BROKER_URL
+BROKER_URL = 'redis://localhost:6379' #clery4 版本用来代替CELERY_BROKER_URL
 CELERY_BROKER_URL = 'redis://localhost:6379/1'
 #CELERY_RESULT_BACKEND = 'redis://localhost:6379/0'
 CELERY_RESULT_BACKEND = 'django-db'
 CELERY_CACHE_BACKEND = 'django-cache'
+
+#需执行异步的子应用
+CELERY_IMPORTS = (
+    'TestModel.tasks',
+)
+
+# celery内容等消息的格式设置
+CELERY_ACCEPT_CONTENT = ['application/json', ]
+CELERY_TASK_SERIALIZER = 'json'
 CELERY_RESULT_SERIALIZER = 'json'
-CELERY_IMPORTS = ('TestModel.tasks') #需执行异步的子应用
 
 # django setting.
 CACHES = {
@@ -19,7 +27,7 @@ CACHES = {
         'LOCATION': 'my_cache_table',
     }
 }
-
+# 为定时任务和异步任务单独设置QUEUES
 CELERY_QUEUES = {
     'beat_tasks': {
         'exchange': 'beat_tasks',
@@ -33,8 +41,13 @@ CELERY_QUEUES = {
     }
 }
 
-
+# 默认使用队列
 CELERY_DEFAULT_QUEUE = 'work_queue'
+
+# 某个程序中出现的队列，在broker中不存在，则立刻创建它
+CELERY_CREATE_MISSING_QUEUES = True
+
+CELERYD_PREFETCH_MULTIPLIER = 1
 
 #  有些情况下可以防止死锁
 CELERYD_FORCE_EXECV = True
@@ -49,7 +62,7 @@ CELERY_ACKS_LATE = True
 CELERYD_MAX_TASKS_PER_CHILD = 100
 
 #  单个任务的最大运行时间，超过就杀死
-CELERYD_TASK_TIME_LEMIT = 12 * 30
+CELERYD_TASK_TIME_LEMIT = 12 * 60
 
 #  定时任务
 CELERYBEAT_SCHEDULE = {

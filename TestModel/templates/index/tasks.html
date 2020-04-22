@@ -34,6 +34,7 @@
                 <tr>
                   <th>No.</th>
                   <th>ID</th>
+				  <th>TASK</th>
                   <th>progress</th>
 				  <th>Status</th>
 				  <th>Opration</th>
@@ -50,8 +51,9 @@
                   <td>
 				    <a  href="#">{{ result.task_id |slice:":7"  }}</a>
 				  </td>
-                  <td>
-					{% if result.status == 1 %}
+				  <td>{{ result.task_name }}</td>
+                  <!--td>
+					{% if result.status == "FAILURE" %}
 					  <div class="progress progress-sm">
                         <div class="progress-bar bg-red" role="progressbar" aria-volumenow={{ task.progress }} aria-volumemin="0" aria-volumemax="100" style="width: {{ task.progress }}%">
                       </div>
@@ -68,11 +70,12 @@
                         {{ task.progress }}% Complete
                       </small>
 					{% endif %}
+				  </td-->
+				  <td>
 				  </td>
-				  
-				  {% if result.status == "SUCCESS" %}
+				  {% if result.status == "SUCCESS" or result.status == "PROGRESS" %}
 				    <td class="project-state">
-				      <span class="badge badge-success">SUCCESS</span>
+				      <span class="badge badge-success">{{ result.status }}</span>
 				    </td>
 				    <td>
 					  <a class="btn btn-primary btn-sm" href="#">
@@ -81,17 +84,31 @@
 				    </td>
 				  {% elif result.status == "FAILURE" %}
 				    <td class="project-state">
-					  <span class="badge badge-danger">FAILURE</span>
+					  <span class="badge badge-danger">{{ result.status }}</span>
 					</td>
 					<td>
 					  <a class="btn btn-primary btn-sm" href="#">
                         <i class="fas fa-folder">Log</i>
                       </a>
 					</td>
+				  {% elif result.status == "PENDING" %}
+				    <td class="project-state">
+					  <span class="badge badge-warning">{{ result.status }}</span>
+					</td>
+					<td>
+					  <a class="btn btn-primary btn-sm" href="#">
+                        <i class="fas fa-folder">Log</i>
+                      </a>
+					</td>
+				  {% else %}
+				    <td class="project-state">
+					  <span class="badge badge-danger">{{ result.status }}</span>
+					</td>
+					<td>
 				  {% endif %}
 				  
 				  <td>{{ result.Owner }}</td>
-				  <td>{{ result.date_created }}</td>
+				  <td>{{ result.date_created | date:"Y-m-d H:i:s" }}</td>
                 </tr>
 	            {% endfor %}
 

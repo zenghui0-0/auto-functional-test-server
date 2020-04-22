@@ -30,6 +30,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'django_celery_results',
     'TestModel',
+    'TestSuites',
     'djcelery',
 ]
 

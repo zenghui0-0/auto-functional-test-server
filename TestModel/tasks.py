@@ -4,6 +4,9 @@ from celery import task
 from celery import shared_task
 from django.core.mail import send_mail
 from django.http import HttpResponse
+from TestSuites.conplyent_connect_execute import RUN
+
+
 
 #定义异步写文件方法
 @task
@@ -33,7 +36,20 @@ def email_():
         else:
                 return HttpResponse("发送失败")
 
-@task
-def add(x, y):
+@task(bind=True)
+def add(self, x, y):
     print("{} + {} = {})".format(x,y,x+y))
+    time.sleep(10)
+    self.update_state(state="PROGRESS", meta={'p': 33})
+    test1 = RUN("192.101.16.228", 9922, "IPCONFIG_TEST")
+    test1.start_test("ipconfig", 0.1,)
+    self.update_state(state="PROGRESS", meta={'p': 33})
+    time.sleep(10)
+    self.update_state(state="PROGRESS", meta={'p': 99})
     return (x + y)
+
+
+@task
+def execute():
+    pass
+

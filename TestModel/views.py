@@ -24,9 +24,13 @@ def Add(request):
         return redirect('/login/', locals())
     user = request.session['user_name']
     res = add.delay(3, 4)
-    #print(dir(res))
-    time.sleep(60)
+    while not res.ready():
+        print(res.status)
+        print(res.result)
+        time.sleep(1)
+    #print(res.get())
     return HttpResponse(res.task_id)
+
 
 def hash_code(s, salt='mysite'):# 加点盐
     h = hashlib.sha256()
