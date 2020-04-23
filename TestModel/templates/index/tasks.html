@@ -45,15 +45,33 @@
                 </thead>
                 <tbody>
 				
-				{% for result in results %}
+				{% for task in all_tasks %}
 	            <tr>
-                  <td>{{ result.id }}</td>
+                  <td>{{ forloop.counter }}</td>
                   <td>
-				    <a  href="#">{{ result.task_id |slice:":7"  }}</a>
+				    <a  href="#">{{ task.name |slice:":7"  }}</a>
 				  </td>
-				  <td>{{ result.task_name }}</td>
-                  <!--td>
-					{% if result.status == "FAILURE" %}
+				  <td>{{ task.tag }}</td>
+				  {% if task.status == "SUCCESS" or task.status == "PROGRESS" %}
+				    <td>
+					  <div class="progress progress-sm">
+                        <div class="progress-bar bg-green" role="progressbar" aria-volumenow={{ task.progress }} aria-volumemin="0" aria-volumemax="100" style="width: {{ task.progress }}%">
+                      </div>
+                      </div>
+                      <small>
+                        {{ task.progress }}% Complete
+                      </small>
+					</td>
+				    <td class="project-state">
+				      <span class="badge badge-success">{{ task.status }}</span>
+				    </td>
+				    <td>
+					  <a class="btn btn-primary btn-sm" href="#">
+                        <i class="fas fa-folder">Log</i>
+                      </a>
+				    </td>
+				  {% elif task.status == "FAILURE" %}
+				    <td>
 					  <div class="progress progress-sm">
                         <div class="progress-bar bg-red" role="progressbar" aria-volumenow={{ task.progress }} aria-volumemin="0" aria-volumemax="100" style="width: {{ task.progress }}%">
                       </div>
@@ -61,39 +79,27 @@
                       <small>
                         {{ task.progress }}% Complete
                       </small>
-					{% else %}
-				      <div class="progress progress-sm">
-                        <div class="progress-bar bg-green" role="progressbar" aria-volumenow={{ task.progress }} aria-volumemin="0" aria-volumemax="100" style="width: {{ task.progress }}%">
-                      </div>
-                      </div>
-                      <small>
-                        {{ task.progress }}% Complete
-                      </small>
-					{% endif %}
-				  </td-->
-				  <td>
-				  </td>
-				  {% if result.status == "SUCCESS" or result.status == "PROGRESS" %}
+					</td>
 				    <td class="project-state">
-				      <span class="badge badge-success">{{ result.status }}</span>
-				    </td>
-				    <td>
-					  <a class="btn btn-primary btn-sm" href="#">
-                        <i class="fas fa-folder">Log</i>
-                      </a>
-				    </td>
-				  {% elif result.status == "FAILURE" %}
-				    <td class="project-state">
-					  <span class="badge badge-danger">{{ result.status }}</span>
+					  <span class="badge badge-danger">{{ task.status }}</span>
 					</td>
 					<td>
 					  <a class="btn btn-primary btn-sm" href="#">
                         <i class="fas fa-folder">Log</i>
                       </a>
 					</td>
-				  {% elif result.status == "PENDING" %}
+				  {% elif task.status == "PENDING" %}
+				    <td>
+					  <div class="progress progress-sm">
+                        <div class="progress-bar bg-yellow" role="progressbar" aria-volumenow={{ task.progress }} aria-volumemin="0" aria-volumemax="100" style="width: {{ task.progress }}%">
+                      </div>
+                      </div>
+                      <small>
+                        {{ task.progress }}% Complete
+                      </small>
+					</td>
 				    <td class="project-state">
-					  <span class="badge badge-warning">{{ result.status }}</span>
+					  <span class="badge badge-warning">{{ task.status }}</span>
 					</td>
 					<td>
 					  <a class="btn btn-primary btn-sm" href="#">
@@ -102,13 +108,13 @@
 					</td>
 				  {% else %}
 				    <td class="project-state">
-					  <span class="badge badge-danger">{{ result.status }}</span>
+					  <span class="badge badge-danger">{{ task.status }}</span>
 					</td>
 					<td>
 				  {% endif %}
 				  
-				  <td>{{ result.Owner }}</td>
-				  <td>{{ result.date_created | date:"Y-m-d H:i:s" }}</td>
+				  <td>{{ task.Owner }}</td>
+				  <td>{{ task.m_time | date:"Y-m-d H:i:s" }}</td>
                 </tr>
 	            {% endfor %}
 

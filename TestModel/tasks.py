@@ -5,7 +5,7 @@ from celery import shared_task
 from django.core.mail import send_mail
 from django.http import HttpResponse
 from TestSuites.conplyent_connect_execute import RUN
-
+from . import models, forms
 
 
 #定义异步写文件方法
@@ -37,16 +37,21 @@ def email_():
                 return HttpResponse("发送失败")
 
 @task(bind=True)
-def add(self, x, y):
-    print("{} + {} = {})".format(x,y,x+y))
+def coplyent_execute_cmd(self, test_name, **kwargs):
+    {'cmd' : "ipconfig", 'run_time' : 1, 'dut_ip' : "192.101.16.228", 'port' : 9922}
+    cmd = kwargs.get('cmd')
+    run_time = kwargs.get('run_time')
+    dut_ip = kwargs.get('dut_ip')
+    port = kwargs.get('port')
+    self.update_state(state="PROGRESS", meta={'p': 1})
     time.sleep(10)
     self.update_state(state="PROGRESS", meta={'p': 33})
-    test1 = RUN("192.101.16.228", 9922, "IPCONFIG_TEST")
+    test1 = RUN(dut_ip, port, test_name)
     test1.start_test("ipconfig", 0.1,)
-    self.update_state(state="PROGRESS", meta={'p': 33})
+    self.update_state(state="PROGRESS", meta={'p': 66})
     time.sleep(10)
     self.update_state(state="PROGRESS", meta={'p': 99})
-    return (x + y)
+    return True
 
 
 @task

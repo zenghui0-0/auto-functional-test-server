@@ -8,6 +8,7 @@ import time
 import datetime
 import hashlib
 from django.http import HttpResponse, JsonResponse
+from django.http import HttpResponseRedirect
 from django.shortcuts import render
 from django.shortcuts import redirect
 from django.contrib  import  auth
@@ -19,16 +20,34 @@ from .tasks import *
 from AutoTestServer.celery import app
 
 # Create your views here.
-def Add(request):
+def CMD(request):
     if not request.session.get('is_login', None):
         return redirect('/login/', locals())
-    user = request.session['user_name']
-    res = add.delay(3, 4)
+    user = request.session.get('user_name')
+    res = coplyent_execute_cmd.delay("IPCONFIG_TESTS", **{'cmd' : "ipconfig", 'run_time' : 1, 'dut_ip' : "192.101.16.228", 'port' : 9922}) 
+    task_id = res.task_id
+    #print(task_id)
+    new_task = models.Task()
+    new_task.name = task_id
+    new_task.Owner = user
+    new_task.tag = res.name
+    new_task.status = res.status
+    new_task.m_time = res.date_created
+    new_task.progress = 0
+    new_task.save()
+    p = 0
     while not res.ready():
-        print(res.status)
-        print(res.result)
+        new_task.status = res.status
+        result = res.result
+        if res.state == 'PROGRESS':    
+            try:
+                p = result.get('p')
+            except Exception as e:
+                pass
+        new_task.progress = p
+        new_task.save()
         time.sleep(1)
-    #print(res.get())
+
     return HttpResponse(res.task_id)
 
 
@@ -49,7 +68,7 @@ def index(request):
 def tasks(request):
     if not request.session.get('is_login', None):
         return redirect('/login/', locals())
-    results = taskViews.tasks(request)
+    all_tasks = taskViews.tasks(request)
     return render(request, 'index/tasks.html', locals())
 
 
